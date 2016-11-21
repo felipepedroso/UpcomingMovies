@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MoviesPoc</string>
+    <string name="movie_rating_format">%1$.2f / 5.0</string>
+    <string name="textView_movie_release_date_label">Release Date</string>
+    <string name="textView_movie_rating_label">User Rating</string>
+    <string name="textView_movie_overview_label">Overview</string>
+    <string name="textView_movie_title_label">Title</string>
+    <string name="textView_similar_movies_label">Similar Movies</string>
+
+</resources>
