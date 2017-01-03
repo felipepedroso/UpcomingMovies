@@ -1,8 +1,8 @@
 package br.pedroso.movies.movieDetails.usecases;
 
-import br.pedroso.movies.domain.model.Movie;
-import br.pedroso.movies.domain.repository.MoviesRepository;
-import br.pedroso.movies.domain.usecase.UseCase;
+import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.repository.MoviesRepository;
+import br.pedroso.movies.shared.domain.usecase.UseCase;
 
 import java.util.List;
 

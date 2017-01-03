@@ -1,8 +1,8 @@
 package br.pedroso.movies.movies;
 
-import br.pedroso.movies.mvp.BasePresenter;
-import br.pedroso.movies.mvp.BaseView;
-import br.pedroso.movies.domain.model.Movie;
+import br.pedroso.movies.shared.mvp.BasePresenter;
+import br.pedroso.movies.shared.mvp.BaseView;
+import br.pedroso.movies.shared.domain.model.Movie;
 
 import java.util.List;
 

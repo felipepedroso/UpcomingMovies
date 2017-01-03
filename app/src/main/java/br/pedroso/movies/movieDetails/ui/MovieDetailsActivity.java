@@ -18,20 +18,21 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import br.pedroso.movies.MoviesApplication;
 import com.ciandt.moviespoc.R;
-import br.pedroso.movies.di.components.RepositoryComponent;
-import br.pedroso.movies.domain.model.Movie;
-import br.pedroso.movies.movieDetails.MovieDetailsContract;
-import br.pedroso.movies.movieDetails.di.DaggerMovieDetailsComponent;
-import br.pedroso.movies.movieDetails.di.MovieDetailsPresenterModule;
-import br.pedroso.movies.movieDetails.presenter.MovieDetailsPresenter;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import br.pedroso.movies.MoviesApplication;
+import br.pedroso.movies.di.application.ApplicationComponent;
+import br.pedroso.movies.di.movieDetails.DaggerMovieDetailsComponent;
+import br.pedroso.movies.di.movieDetails.MovieDetailsPresenterModule;
+import br.pedroso.movies.movieDetails.presenter.MovieDetailsPresenter;
+import br.pedroso.movies.movieDetails.MovieDetailsContract;
+import br.pedroso.movies.shared.domain.model.Movie;
 
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsContract.View {
     public static final String EXTRA_MOVIE_ID = "movie_id";
@@ -87,12 +88,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     }
 
     private void injectPresenter() {
-        RepositoryComponent repositoryComponent = ((MoviesApplication) getApplication()).getRepositoryComponent();
+        ApplicationComponent applicationComponent = ((MoviesApplication) getApplication()).getApplicationComponent();
 
         Integer movieToBePresentedId = getIntent().getIntExtra(EXTRA_MOVIE_ID, -1);
 
         DaggerMovieDetailsComponent.builder()
-                .repositoryComponent(repositoryComponent)
+                .applicationComponent(applicationComponent)
                 .movieDetailsPresenterModule(new MovieDetailsPresenterModule(movieToBePresentedId, this))
                 .build()
                 .inject(this);

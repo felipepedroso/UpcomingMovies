@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ciandt.moviespoc.R;
-import br.pedroso.movies.domain.model.Movie;
+import br.pedroso.movies.shared.domain.model.Movie;
 import br.pedroso.movies.movieDetails.ui.MovieDetailsActivity;
 import br.pedroso.movies.movies.MoviesContract;
 

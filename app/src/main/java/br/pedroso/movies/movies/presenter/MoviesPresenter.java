@@ -2,8 +2,8 @@ package br.pedroso.movies.movies.presenter;
 
 import android.util.Log;
 
-import br.pedroso.movies.domain.model.Movie;
-import br.pedroso.movies.domain.usecase.UseCase;
+import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.usecase.UseCase;
 import br.pedroso.movies.movies.MoviesContract;
 
 import java.util.List;

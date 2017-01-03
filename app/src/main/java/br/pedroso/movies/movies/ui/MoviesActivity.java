@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import br.pedroso.movies.MoviesApplication;
 import com.ciandt.moviespoc.R;
-import br.pedroso.movies.di.components.RepositoryComponent;
-import br.pedroso.movies.movies.di.DaggerMoviesComponent;
-import br.pedroso.movies.movies.di.MoviesPresenterModule;
+import br.pedroso.movies.di.application.ApplicationComponent;
+import br.pedroso.movies.di.movies.DaggerMoviesComponent;
+import br.pedroso.movies.di.movies.MoviesPresenterModule;
 import br.pedroso.movies.movies.presenter.MoviesPresenter;
-import br.pedroso.movies.utils.FragmentUtils;
+import br.pedroso.movies.shared.utils.FragmentUtils;
 
 import javax.inject.Inject;
 
@@ -41,10 +41,10 @@ public class MoviesActivity extends AppCompatActivity {
     }
 
     private void injectPresenter() {
-        RepositoryComponent repositoryComponent = ((MoviesApplication) getApplication()).getRepositoryComponent();
+        ApplicationComponent applicationComponent = ((MoviesApplication) getApplication()).getApplicationComponent();
 
         DaggerMoviesComponent.builder()
-                .repositoryComponent(repositoryComponent)
+                .applicationComponent(applicationComponent)
                 .moviesPresenterModule(new MoviesPresenterModule(moviesFragment))
                 .build()
                 .inject(this);

@@ -5,34 +5,34 @@ import android.app.Application;
 
 import com.ciandt.moviespoc.BuildConfig;
 
-import br.pedroso.movies.data.retrofit.services.TheMovieDbService;
-import br.pedroso.movies.di.components.DaggerRepositoryComponent;
-import br.pedroso.movies.di.components.RepositoryComponent;
-import br.pedroso.movies.di.modules.ApplicationModule;
-import br.pedroso.movies.di.modules.NetworkModule;
-import br.pedroso.movies.di.modules.RepositoryModule;
+import br.pedroso.movies.di.application.ApplicationComponent;
+import br.pedroso.movies.di.application.DaggerApplicationComponent;
+import br.pedroso.movies.shared.data.retrofit.services.TheMovieDbService;
+import br.pedroso.movies.di.application.modules.ApplicationModule;
+import br.pedroso.movies.di.application.modules.NetworkModule;
+import br.pedroso.movies.di.application.modules.RepositoryModule;
 
 public class MoviesApplication extends Application {
 
-    private RepositoryComponent repositoryComponent;
+    private ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        createRepositoryComponent();
+        createApplicationComponent();
     }
 
-    private void createRepositoryComponent() {
-        repositoryComponent = DaggerRepositoryComponent.builder()
+    private void createApplicationComponent() {
+        applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(TheMovieDbService.BASE_URL, BuildConfig.MOVIES_DB_API_KEY))
                 .repositoryModule(new RepositoryModule())
                 .build();
     }
 
-    public RepositoryComponent getRepositoryComponent() {
-        return repositoryComponent;
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 
 }

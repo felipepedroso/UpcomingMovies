@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ciandt.moviespoc.R;
-import br.pedroso.movies.domain.model.Movie;
+import br.pedroso.movies.shared.domain.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
