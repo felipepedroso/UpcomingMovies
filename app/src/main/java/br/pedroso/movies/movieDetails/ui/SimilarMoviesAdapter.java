@@ -64,7 +64,7 @@ public class SimilarMoviesAdapter extends RecyclerView.Adapter<SimilarMoviesAdap
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageViewMoviePoster = (ImageView) itemView.findViewById(R.id.imageView_movie_poster);
+            imageViewMoviePoster = (ImageView) itemView.findViewById(R.id.imageViewMoviePoster);
         }
     }
 }

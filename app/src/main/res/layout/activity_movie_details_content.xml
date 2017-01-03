@@ -31,7 +31,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
-                android:id="@+id/textView_movie_title"
+                android:id="@+id/textViewMovieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_text_marginBottom"
@@ -44,7 +44,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
-                android:id="@+id/textView_movie_release_date"
+                android:id="@+id/textViewMovieReleaseDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_text_marginBottom"
@@ -57,7 +57,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
-                android:id="@+id/textView_movie_vote_average"
+                android:id="@+id/textViewMovieVoteAverage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/card_text_marginBottom"
@@ -70,7 +70,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
-                android:id="@+id/textView_movie_overview"
+                android:id="@+id/textViewMovieOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:textAppearance" />
@@ -78,7 +78,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView_similar_movies"
+        android:id="@+id/cardViewSimilarMovies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/card_default_elevation"
@@ -100,7 +100,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_movies"
+                android:id="@+id/recyclerViewSimilarMovies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
