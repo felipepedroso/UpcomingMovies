@@ -74,9 +74,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageViewMoviePoster = (ImageView) itemView.findViewById(R.id.imageView_movie_poster);
-            textViewMovieTitle = (TextView) itemView.findViewById(R.id.textView_movie_title);
-            textViewMovieReleaseDate = (TextView) itemView.findViewById(R.id.textView_movie_release_date);
+            imageViewMoviePoster = (ImageView) itemView.findViewById(R.id.imageViewMoviePoster);
+            textViewMovieTitle = (TextView) itemView.findViewById(R.id.textViewMovieTitle);
+            textViewMovieReleaseDate = (TextView) itemView.findViewById(R.id.textViewMovieReleaseDate);
         }
     }
 

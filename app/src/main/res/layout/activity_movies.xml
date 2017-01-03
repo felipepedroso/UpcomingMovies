@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="br.pedroso.movies.movies.ui.MoviesActivity">
 
-    <FrameLayout
-        android:id="@+id/contentFrame"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewMovies"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 </RelativeLayout>

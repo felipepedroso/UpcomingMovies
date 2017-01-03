@@ -14,7 +14,7 @@
         android:layout_height="@dimen/movie_poster_card_height">
 
         <ImageView
-            android:id="@+id/imageView_movie_poster"
+            android:id="@+id/imageViewMoviePoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
@@ -32,7 +32,7 @@
             android:paddingTop="24dp">
 
             <TextView
-                android:id="@+id/textView_movie_title"
+                android:id="@+id/textViewMovieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -52,7 +52,7 @@
                     android:textSize="@dimen/textSize_subtitle" />
 
                 <TextView
-                    android:id="@+id/textView_movie_release_date"
+                    android:id="@+id/textViewMovieReleaseDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
