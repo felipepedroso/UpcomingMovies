@@ -2,14 +2,13 @@ package br.pedroso.movies.movies.presenter;
 
 import android.util.Log;
 
-import br.pedroso.movies.shared.domain.model.Movie;
-import br.pedroso.movies.shared.domain.usecase.UseCase;
-import br.pedroso.movies.movies.MoviesContract;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
+import br.pedroso.movies.movies.MoviesContract;
+import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.usecase.UseCase;
 import rx.Subscriber;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
@@ -23,11 +22,6 @@ public class MoviesPresenter implements MoviesContract.Presenter {
         this.view = view;
     }
 
-    @Inject
-    public void setupView() {
-        view.setPresenter(this);
-    }
-
     @Override
     public void resume() {
         loadUpcomingMovies();
@@ -39,16 +33,6 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
     private void displayLoadedMovies(List<Movie> movies) {
         view.renderMoviesList(movies);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
-
     }
 
     @Override

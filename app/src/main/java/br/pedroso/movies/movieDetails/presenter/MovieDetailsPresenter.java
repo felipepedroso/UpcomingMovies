@@ -18,17 +18,11 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
     private UseCase<List<Movie>> listSimilarMoviesUseCase;
 
-
     @Inject
     public MovieDetailsPresenter(MovieDetailsContract.View view, UseCase<Movie> getMovieDetailsUseCase, UseCase<List<Movie>> listSimilarMoviesUseCase) {
         this.view = view;
         this.getMovieDetailsUseCase = getMovieDetailsUseCase;
         this.listSimilarMoviesUseCase = listSimilarMoviesUseCase;
-    }
-
-    @Inject
-    public void setupView() {
-        view.setPresenter(this);
     }
 
     @Override
@@ -39,16 +33,6 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     private void loadMovieDetails() {
         getMovieDetailsUseCase.execute(getMovieDetailsSubscriber);
         listSimilarMoviesUseCase.execute(listSimilarMoviesSubscriber);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
-
     }
 
     private void displayMovieDetails(Movie movie) {

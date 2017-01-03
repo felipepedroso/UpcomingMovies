@@ -90,9 +90,4 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     public void onMovieClick(Movie movie) {
         presenter.onMovieClick(movie);
     }
-
-    @Override
-    public void setPresenter(MoviesContract.Presenter presenter) {
-        // We don't need to set the presenter, since it's being injected by Dagger
-    }
 }

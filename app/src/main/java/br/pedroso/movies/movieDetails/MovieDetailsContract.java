@@ -1,17 +1,15 @@
 package br.pedroso.movies.movieDetails;
 
-import br.pedroso.movies.shared.mvp.BasePresenter;
-import br.pedroso.movies.shared.mvp.BaseView;
-import br.pedroso.movies.shared.domain.model.Movie;
-
 import java.util.List;
 
-public interface MovieDetailsContract {
-    interface Presenter extends BasePresenter {
+import br.pedroso.movies.shared.domain.model.Movie;
 
+public interface MovieDetailsContract {
+    interface Presenter {
+        void resume();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View {
         void renderMovieDetails(Movie movie);
 
         void hideSimilarMoviesPanel();

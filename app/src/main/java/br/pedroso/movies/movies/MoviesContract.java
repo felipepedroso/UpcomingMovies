@@ -1,17 +1,17 @@
 package br.pedroso.movies.movies;
 
-import br.pedroso.movies.shared.mvp.BasePresenter;
-import br.pedroso.movies.shared.mvp.BaseView;
-import br.pedroso.movies.shared.domain.model.Movie;
-
 import java.util.List;
 
+import br.pedroso.movies.shared.domain.model.Movie;
+
 public interface MoviesContract {
-    interface Presenter extends BasePresenter {
+    interface Presenter {
         void onMovieClick(Movie movie);
+
+        void resume();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View {
         void renderMoviesList(List<Movie> moviesList);
 
         void startMovieDetailsActivity(Integer id);

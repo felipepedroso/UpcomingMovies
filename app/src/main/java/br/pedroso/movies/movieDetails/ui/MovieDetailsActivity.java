@@ -170,25 +170,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     }
 
     @Override
-    public void setPresenter(MovieDetailsContract.Presenter presenter) {
-        // We don't need to set the presenter, since it's being injected by Dagger
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         presenter.resume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        presenter.pause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.destroy();
     }
 }
