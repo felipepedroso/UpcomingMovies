@@ -3,7 +3,7 @@ package br.pedroso.movies.shared.data.retrofit;
 import br.pedroso.movies.shared.data.dataSource.DataSource;
 import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
 import br.pedroso.movies.shared.data.retrofit.services.TheMovieDbService;
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 
 import java.util.List;
 

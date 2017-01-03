@@ -1,29 +1,23 @@
 package br.pedroso.movies.movies.usecases;
 
-import br.pedroso.movies.shared.domain.model.Movie;
-import br.pedroso.movies.shared.domain.repository.MoviesRepository;
-import br.pedroso.movies.shared.domain.usecase.UseCase;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
+import br.pedroso.movies.shared.data.MoviesRepository;
+import br.pedroso.movies.shared.domain.Movie;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
-public class ListUpcomingMovies extends UseCase<List<Movie>> {
+public class ListUpcomingMovies {
 
     private MoviesRepository moviesRepository;
     
     @Inject
     public ListUpcomingMovies(MoviesRepository moviesRepository) {
-        super(Schedulers.io(), AndroidSchedulers.mainThread());
         this.moviesRepository = moviesRepository;
     }
 
-    @Override
-    protected Observable<List<Movie>> buildUseCaseObservable() {
+    public Observable<List<Movie>> execute() {
         return moviesRepository.listUpcomingMovies();
     }
 }

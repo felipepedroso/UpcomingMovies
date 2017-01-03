@@ -7,17 +7,21 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.pedroso.movies.movies.MoviesContract;
-import br.pedroso.movies.shared.domain.model.Movie;
-import br.pedroso.movies.shared.domain.usecase.UseCase;
+import br.pedroso.movies.movies.usecases.ListUpcomingMovies;
+import br.pedroso.movies.shared.domain.Movie;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
     private static final String LOG_TAG = MoviesPresenter.class.getName();
+
     private final MoviesContract.View view;
-    private final UseCase<List<Movie>> listUpcomingMoviesUseCase;
+
+    private final ListUpcomingMovies listUpcomingMoviesUseCase;
 
     @Inject
-    MoviesPresenter(MoviesContract.View view, UseCase<List<Movie>> listUpcomingMoviesUseCase) {
+    MoviesPresenter(MoviesContract.View view, ListUpcomingMovies listUpcomingMoviesUseCase) {
         this.listUpcomingMoviesUseCase = listUpcomingMoviesUseCase;
         this.view = view;
     }
@@ -28,7 +32,29 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     }
 
     private void loadUpcomingMovies() {
-        listUpcomingMoviesUseCase.execute(listUpcomingMoviesSubscriber);
+        view.cleanMoviesList();
+
+        Action1<? super List<Movie>> onNext = new Action1<List<Movie>>() {
+            @Override
+            public void call(List<Movie> movies) {
+                displayLoadedMovies(movies);
+            }
+        };
+
+        Action1<Throwable> onError =  new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                displayErrorOnLoadingMessage(throwable);
+            }
+        };
+
+        listUpcomingMoviesUseCase.execute()
+                .observeOn(AndroidSchedulers.mainThread()) // TODO: improve this.
+                .subscribe(onNext, onError);
+    }
+
+    private void displayErrorOnLoadingMessage(Throwable throwable) {
+        // TODO
     }
 
     private void displayLoadedMovies(List<Movie> movies) {
@@ -41,23 +67,4 @@ public class MoviesPresenter implements MoviesContract.Presenter {
 
         view.startMovieDetailsActivity(movie.getId());
     }
-
-    private final Subscriber<List<Movie>> listUpcomingMoviesSubscriber = new Subscriber<List<Movie>>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-
-        }
-
-        @Override
-        public void onNext(List<Movie> movies) {
-            displayLoadedMovies(movies);
-        }
-    };
-
-
 }

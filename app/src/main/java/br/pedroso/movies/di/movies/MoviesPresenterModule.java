@@ -1,13 +1,8 @@
 package br.pedroso.movies.di.movies;
 
-import br.pedroso.movies.shared.domain.model.Movie;
-import br.pedroso.movies.shared.domain.repository.MoviesRepository;
-import br.pedroso.movies.shared.domain.usecase.UseCase;
 import br.pedroso.movies.movies.MoviesContract;
 import br.pedroso.movies.movies.usecases.ListUpcomingMovies;
-
-import java.util.List;
-
+import br.pedroso.movies.shared.data.MoviesRepository;
 import dagger.Module;
 import dagger.Provides;
 
@@ -25,7 +20,7 @@ public class MoviesPresenterModule {
     }
 
     @Provides
-    UseCase<List<Movie>> provideListUpcomingMoviesUseCase(MoviesRepository moviesRepository) {
+    ListUpcomingMovies provideListUpcomingMoviesUseCase(MoviesRepository moviesRepository) {
         return new ListUpcomingMovies(moviesRepository);
     }
 }

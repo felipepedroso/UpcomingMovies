@@ -20,7 +20,7 @@ import br.pedroso.movies.di.movies.MoviesPresenterModule;
 import br.pedroso.movies.movieDetails.ui.MovieDetailsActivity;
 import br.pedroso.movies.movies.MoviesContract;
 import br.pedroso.movies.movies.presenter.MoviesPresenter;
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesContract.View, MoviesAdapter.OnMovieClickListener {
 
@@ -84,6 +84,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movieId);
         startActivity(intent);
+    }
+
+    @Override
+    public void cleanMoviesList() {
+        moviesAdapter.clearItems();
     }
 
     @Override

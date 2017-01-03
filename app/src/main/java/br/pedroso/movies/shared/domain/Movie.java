@@ -1,4 +1,4 @@
-package br.pedroso.movies.shared.domain.model;
+package br.pedroso.movies.shared.domain;
 
 public class Movie {
     private Integer id;

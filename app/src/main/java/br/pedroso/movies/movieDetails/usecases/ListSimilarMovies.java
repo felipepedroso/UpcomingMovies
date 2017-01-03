@@ -1,27 +1,19 @@
 package br.pedroso.movies.movieDetails.usecases;
 
-import br.pedroso.movies.shared.domain.model.Movie;
-import br.pedroso.movies.shared.domain.repository.MoviesRepository;
-import br.pedroso.movies.shared.domain.usecase.UseCase;
-
 import java.util.List;
 
+import br.pedroso.movies.shared.data.MoviesRepository;
+import br.pedroso.movies.shared.domain.Movie;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
-public class ListSimilarMovies extends UseCase<List<Movie>> {
-    private final Integer movieId;
+public class ListSimilarMovies {
     private final MoviesRepository moviesRepository;
 
-    public ListSimilarMovies(Integer movieId, MoviesRepository moviesRepository) {
-        super(Schedulers.io(), AndroidSchedulers.mainThread());
-        this.movieId = movieId;
+    public ListSimilarMovies(MoviesRepository moviesRepository) {
         this.moviesRepository = moviesRepository;
     }
 
-    @Override
-    protected Observable<List<Movie>> buildUseCaseObservable() {
+    public Observable<List<Movie>> execute(Integer movieId) {
         return moviesRepository.listSimilarMovies(movieId);
     }
 }

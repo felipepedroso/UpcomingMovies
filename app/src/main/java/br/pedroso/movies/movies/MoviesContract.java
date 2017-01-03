@@ -2,7 +2,7 @@ package br.pedroso.movies.movies;
 
 import java.util.List;
 
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 
 public interface MoviesContract {
     interface Presenter {
@@ -15,5 +15,7 @@ public interface MoviesContract {
         void renderMoviesList(List<Movie> moviesList);
 
         void startMovieDetailsActivity(Integer id);
+
+        void cleanMoviesList();
     }
 }

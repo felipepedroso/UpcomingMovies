@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ciandt.moviespoc.R;
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 
 import com.squareup.picasso.Picasso;
 

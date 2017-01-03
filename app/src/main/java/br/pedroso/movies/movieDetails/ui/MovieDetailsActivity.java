@@ -32,7 +32,7 @@ import br.pedroso.movies.di.movieDetails.DaggerMovieDetailsComponent;
 import br.pedroso.movies.di.movieDetails.MovieDetailsPresenterModule;
 import br.pedroso.movies.movieDetails.MovieDetailsContract;
 import br.pedroso.movies.movieDetails.presenter.MovieDetailsPresenter;
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsContract.View {
     public static final String EXTRA_MOVIE_ID = "movie_id";
@@ -100,11 +100,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     private void injectPresenter() {
         ApplicationComponent applicationComponent = ((MoviesApplication) getApplication()).getApplicationComponent();
 
-        Integer movieToBePresentedId = getIntent().getIntExtra(EXTRA_MOVIE_ID, -1);
-
         DaggerMovieDetailsComponent.builder()
                 .applicationComponent(applicationComponent)
-                .movieDetailsPresenterModule(new MovieDetailsPresenterModule(movieToBePresentedId, this))
+                .movieDetailsPresenterModule(new MovieDetailsPresenterModule(this))
                 .build()
                 .inject(this);
     }
@@ -172,6 +170,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.resume();
+
+        Integer movieToBePresentedId = getIntent().getIntExtra(EXTRA_MOVIE_ID, -1);
+
+        presenter.loadMovieDetails(movieToBePresentedId);
     }
 }

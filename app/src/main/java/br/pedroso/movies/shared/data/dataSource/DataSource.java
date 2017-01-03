@@ -1,6 +1,6 @@
 package br.pedroso.movies.shared.data.dataSource;
 
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 
 import java.util.List;
 

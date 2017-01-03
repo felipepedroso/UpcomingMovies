@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ciandt.moviespoc.R;
-import br.pedroso.movies.shared.domain.model.Movie;
+import br.pedroso.movies.shared.domain.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,6 +64,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     public void updateAdapterData(List<Movie> newMoviesList) {
         this.moviesList = newMoviesList;
+        this.notifyDataSetChanged();
+    }
+
+    public void clearItems() {
+        this.moviesList.clear();
         this.notifyDataSetChanged();
     }
 
