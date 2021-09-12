@@ -14,6 +14,7 @@ import br.pedroso.upcomingmovies.databinding.ActivityMoviesBinding;
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
+import br.pedroso.upcomingmovies.movieslist.adapter.MoviesAdapter;
 import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent;
 import br.pedroso.upcomingmovies.movieslist.di.MoviesPresenterModule;
 
@@ -29,10 +30,8 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesListV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setupView();
-
         injectPresenter();
+        setupView();
     }
 
     @Override
@@ -56,7 +55,7 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesListV
     }
 
     private void setupRecyclerViewMovies() {
-        moviesAdapter = new MoviesAdapter(this, presenter::onMovieClick);
+        moviesAdapter = new MoviesAdapter(presenter::onMovieClick);
         binding.recyclerViewMovies.setAdapter(moviesAdapter);
     }
 
