@@ -5,29 +5,25 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.domain.Movie;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
-import br.pedroso.upcomingmovies.moviedetails.usecases.GetMovieDetails;
-import br.pedroso.upcomingmovies.moviedetails.usecases.ListSimilarMovies;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
     private final MovieDetailsContract.View view;
 
-    private final GetMovieDetails getMovieDetailsUseCase;
-
-    private final ListSimilarMovies listSimilarMoviesUseCase;
+    private final MoviesRepository moviesRepository;
 
     @Inject
-    public MovieDetailsPresenter(MovieDetailsContract.View view, GetMovieDetails getMovieDetailsUseCase, ListSimilarMovies listSimilarMoviesUseCase) {
+    public MovieDetailsPresenter(MovieDetailsContract.View view, MoviesRepository moviesRepository) {
         this.view = view;
-        this.getMovieDetailsUseCase = getMovieDetailsUseCase;
-        this.listSimilarMoviesUseCase = listSimilarMoviesUseCase;
+        this.moviesRepository = moviesRepository;
     }
 
     @Override
     public void loadMovieDetails(int movieId) {
-        getMovieDetailsUseCase.execute(movieId)
+        moviesRepository.getMovieDetails(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displayMovieDetails, this::displayLoadingErrorMessage);
 
@@ -39,7 +35,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     }
 
     private void loadSimilarMovies(int movieId) {
-        listSimilarMoviesUseCase.execute(movieId)
+        moviesRepository.listSimilarMovies(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displaySimilarMovies, error -> view.hideSimilarMoviesPanel());
     }

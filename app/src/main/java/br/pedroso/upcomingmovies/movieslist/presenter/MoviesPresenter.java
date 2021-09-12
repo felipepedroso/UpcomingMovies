@@ -7,21 +7,20 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.domain.Movie;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
-import br.pedroso.upcomingmovies.movieslist.usecases.ListUpcomingMovies;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
     private static final String LOG_TAG = MoviesPresenter.class.getName();
 
     private final MoviesContract.View view;
 
-    private final ListUpcomingMovies listUpcomingMoviesUseCase;
+    private final MoviesRepository moviesRepository;
 
     @Inject
-    MoviesPresenter(MoviesContract.View view, ListUpcomingMovies listUpcomingMoviesUseCase) {
-        this.listUpcomingMoviesUseCase = listUpcomingMoviesUseCase;
+    MoviesPresenter(MoviesContract.View view, MoviesRepository moviesRepository) {
+        this.moviesRepository = moviesRepository;
         this.view = view;
     }
 
@@ -33,7 +32,7 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     private void loadUpcomingMovies() {
         view.cleanMoviesList();
 
-        listUpcomingMoviesUseCase.execute()
+        moviesRepository.listUpcomingMovies()
                 .observeOn(AndroidSchedulers.mainThread()) // TODO: improve this.
                 .subscribe(this::displayLoadedMovies, this::displayErrorOnLoadingMessage);
     }
