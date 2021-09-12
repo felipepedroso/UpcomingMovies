@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 
 import br.pedroso.upcomingmovies.shared.data.retrofit.deserializer.UpcomingMoviesResultDeserializer;
 import br.pedroso.upcomingmovies.shared.data.retrofit.interceptors.ApiKeyInterceptor;
+import br.pedroso.upcomingmovies.shared.data.retrofit.services.TheMovieDbService;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -75,5 +76,11 @@ public class NetworkModule {
                 .build();
 
         return retrofit;
+    }
+
+    @Provides
+    @Singleton
+    TheMovieDbService provideTheMovieDbService(Retrofit retrofit) {
+        return retrofit.create(TheMovieDbService.class);
     }
 }
