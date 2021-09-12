@@ -1,11 +1,9 @@
 package br.pedroso.upcomingmovies.movieslist.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.MoviesApplication;
-import br.pedroso.upcomingmovies.R;
+import br.pedroso.upcomingmovies.databinding.ActivityMoviesBinding;
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
@@ -22,11 +20,11 @@ import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent;
 import br.pedroso.upcomingmovies.movieslist.di.MoviesPresenterModule;
 import br.pedroso.upcomingmovies.movieslist.presenter.MoviesPresenter;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesContract.View, MoviesAdapter.OnMovieClickListener {
-
-    private RecyclerView recyclerViewMovies;
+public class MoviesActivity extends AppCompatActivity implements MoviesContract.View {
 
     private MoviesAdapter moviesAdapter;
+
+    private ActivityMoviesBinding binding;
 
     @Inject
     MoviesPresenter presenter;
@@ -53,21 +51,16 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     }
 
     private void setupView() {
-        setContentView(R.layout.activity_movies);
+        binding = ActivityMoviesBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
 
         setupRecyclerViewMovies();
     }
 
     private void setupRecyclerViewMovies() {
-        recyclerViewMovies = (RecyclerView) findViewById(R.id.recyclerViewMovies);
-
-        Context context = this;
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerViewMovies.setLayoutManager(layoutManager);
-
-        moviesAdapter = new MoviesAdapter(context, this);
-        recyclerViewMovies.setAdapter(moviesAdapter);
+        moviesAdapter = new MoviesAdapter(this, presenter::onMovieClick);
+        binding.recyclerViewMovies.setAdapter(moviesAdapter);
     }
 
     private void injectPresenter() {
@@ -95,10 +88,5 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     @Override
     public void cleanMoviesList() {
         moviesAdapter.clearItems();
-    }
-
-    @Override
-    public void onMovieClick(Movie movie) {
-        presenter.onMovieClick(movie);
     }
 }
