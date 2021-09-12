@@ -53,7 +53,7 @@ public class RetrofitDataSource implements DataSource {
     }
 
     private class RetrofitMovieEntityToMovieMapper implements Func1<RetrofitMovieEntity, Movie> {
-        public static final String IMAGE_TMDB_BASE_URL = "http://image.tmdb.org/t/p/w500";
+        public static final String IMAGE_TMDB_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
         @Override
         public Movie call(RetrofitMovieEntity retrofitMovieEntity) {
