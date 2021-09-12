@@ -1,19 +1,19 @@
 package br.pedroso.upcomingmovies.movieslist.di;
 
-import br.pedroso.upcomingmovies.movieslist.MoviesContract;
+import br.pedroso.upcomingmovies.movieslist.MoviesListView;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class MoviesPresenterModule {
-    private final MoviesContract.View view;
+    private final MoviesListView view;
 
-    public MoviesPresenterModule(MoviesContract.View view) {
+    public MoviesPresenterModule(MoviesListView view) {
         this.view = view;
     }
 
     @Provides
-    MoviesContract.View providesMoviesView() {
+    MoviesListView providesMoviesView() {
         return view;
     }
 }

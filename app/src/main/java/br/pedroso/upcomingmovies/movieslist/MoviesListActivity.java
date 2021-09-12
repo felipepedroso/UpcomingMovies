@@ -1,10 +1,9 @@
-package br.pedroso.upcomingmovies.movieslist.ui;
+package br.pedroso.upcomingmovies.movieslist;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -15,19 +14,17 @@ import br.pedroso.upcomingmovies.databinding.ActivityMoviesBinding;
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
-import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent;
 import br.pedroso.upcomingmovies.movieslist.di.MoviesPresenterModule;
-import br.pedroso.upcomingmovies.movieslist.presenter.MoviesPresenter;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesContract.View {
+public class MoviesListActivity extends AppCompatActivity implements MoviesListView {
 
     private MoviesAdapter moviesAdapter;
 
     private ActivityMoviesBinding binding;
 
     @Inject
-    MoviesPresenter presenter;
+    MoviesListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

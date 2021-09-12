@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".movieslist.ui.MoviesActivity">
+        <activity android:name=".movieslist.MoviesListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
