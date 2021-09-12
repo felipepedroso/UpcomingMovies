@@ -90,6 +90,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_movie_details);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void injectPresenter() {
