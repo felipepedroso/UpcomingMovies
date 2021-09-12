@@ -6,17 +6,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -26,11 +20,12 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.MoviesApplication;
 import br.pedroso.upcomingmovies.R;
+import br.pedroso.upcomingmovies.databinding.ActivityMovieDetailsBinding;
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.domain.Movie;
+import br.pedroso.upcomingmovies.moviedetails.adapter.SimilarMoviesAdapter;
 import br.pedroso.upcomingmovies.moviedetails.di.DaggerMovieDetailsComponent;
 import br.pedroso.upcomingmovies.moviedetails.di.MovieDetailsPresenterModule;
-import br.pedroso.upcomingmovies.moviedetails.adapter.SimilarMoviesAdapter;
 
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsView {
     public static final String EXTRA_MOVIE_ID = "movie_id";
@@ -38,14 +33,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @Inject
     MovieDetailsPresenter presenter;
 
-    private ImageView imageViewMoviePoster;
-    private TextView textViewMovieReleaseDate;
-    private TextView textViewMovieVoteAverage;
-    private CollapsingToolbarLayout collapsingToolbarMovieDetails;
-    private TextView textViewMovieOverview;
-    private TextView textViewMovieTitle;
-    private RecyclerView recyclerViewSimilarMovies;
     private SimilarMoviesAdapter similarMoviesAdapter;
+
+    private ActivityMovieDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +49,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     }
 
     private void setupView() {
-        setContentView(R.layout.activity_movie_details);
+        binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
 
-        bindViews();
+        setContentView(binding.getRoot());
 
         setupToolbar();
 
@@ -69,28 +59,15 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     }
 
     private void setupSimilarMoviesRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewSimilarMovies.setLayoutManager(layoutManager);
         similarMoviesAdapter = new SimilarMoviesAdapter(this);
-        recyclerViewSimilarMovies.setAdapter(similarMoviesAdapter);
-    }
-
-    private void bindViews() {
-        imageViewMoviePoster = (ImageView) findViewById(R.id.imageViewMoviePoster);
-        textViewMovieTitle = (TextView) findViewById(R.id.textViewMovieTitle);
-        textViewMovieReleaseDate = (TextView) findViewById(R.id.textViewMovieReleaseDate);
-        textViewMovieVoteAverage = (TextView) findViewById(R.id.textViewMovieVoteAverage);
-        textViewMovieOverview = (TextView) findViewById(R.id.textViewMovieOverview);
-        collapsingToolbarMovieDetails = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarMovieDetails);
-        recyclerViewSimilarMovies = (RecyclerView) findViewById(R.id.recyclerViewSimilarMovies);
+        binding.movieDetailsContent.recyclerViewSimilarMovies.setAdapter(similarMoviesAdapter);
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_movie_details);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbarMovieDetails);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        binding.toolbarMovieDetails.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     private void injectPresenter() {
@@ -106,27 +83,23 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @Override
     public void renderMovieDetails(Movie movie) {
         String title = movie.getTitle();
-        textViewMovieTitle.setText(title);
-        collapsingToolbarMovieDetails.setTitle(title);
+        binding.movieDetailsContent.textViewMovieTitle.setText(title);
+        binding.collapsingToolbarMovieDetails.setTitle(title);
 
         Resources resources = getResources();
 
-        textViewMovieReleaseDate.setText(movie.getReleaseDate());
+        binding.movieDetailsContent.textViewMovieReleaseDate.setText(movie.getReleaseDate());
 
         String votingAverageText = String.format(resources.getString(R.string.movie_rating_format), movie.getVoteAverage());
-        textViewMovieVoteAverage.setText(votingAverageText);
+        binding.movieDetailsContent.textViewMovieVoteAverage.setText(votingAverageText);
 
-        textViewMovieOverview.setText(movie.getOverview());
+        binding.movieDetailsContent.textViewMovieOverview.setText(movie.getOverview());
 
-        Picasso.with(this).load(movie.getPosterPath()).into(imageViewMoviePoster, new Callback() {
+        Picasso.with(this).load(movie.getPosterPath()).into(binding.imageViewMoviePoster, new Callback() {
             @Override
             public void onSuccess() {
-                Bitmap bitmap = ((BitmapDrawable) imageViewMoviePoster.getDrawable()).getBitmap();
-                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                    public void onGenerated(Palette palette) {
-                        applyPalette(palette);
-                    }
-                });
+                Bitmap bitmap = ((BitmapDrawable) binding.imageViewMoviePoster.getDrawable()).getBitmap();
+                Palette.from(bitmap).generate(MovieDetailsActivity.this::applyPalette);
             }
 
             @Override
@@ -140,8 +113,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         int primaryDark = ContextCompat.getColor(this, R.color.colorPrimaryDark);
         int primary = ContextCompat.getColor(this, R.color.colorPrimary);
 
-        collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary));
-        collapsingToolbarMovieDetails.setStatusBarScrimColor(palette.getDarkMutedColor(primaryDark));
+        binding.collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary));
+        binding.collapsingToolbarMovieDetails.setStatusBarScrimColor(palette.getDarkMutedColor(primaryDark));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(palette.getDarkMutedColor(primaryDark));

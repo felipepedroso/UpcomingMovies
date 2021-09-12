@@ -50,7 +50,9 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/activity_movie_details_content" />
+        <include
+            android:id="@+id/movieDetailsContent"
+            layout="@layout/activity_movie_details_content" />
 
     </androidx.core.widget.NestedScrollView>
 
