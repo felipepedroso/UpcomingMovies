@@ -4,20 +4,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import br.pedroso.upcomingmovies.moviedetails.usecases.GetMovieDetails;
 import br.pedroso.upcomingmovies.moviedetails.usecases.ListSimilarMovies;
-import br.pedroso.upcomingmovies.domain.Movie;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
-    private MovieDetailsContract.View view;
+    private final MovieDetailsContract.View view;
 
-    private GetMovieDetails getMovieDetailsUseCase;
+    private final GetMovieDetails getMovieDetailsUseCase;
 
-    private ListSimilarMovies listSimilarMoviesUseCase;
+    private final ListSimilarMovies listSimilarMoviesUseCase;
 
     @Inject
     public MovieDetailsPresenter(MovieDetailsContract.View view, GetMovieDetails getMovieDetailsUseCase, ListSimilarMovies listSimilarMoviesUseCase) {
@@ -28,23 +27,9 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
     @Override
     public void loadMovieDetails(int movieId) {
-        Action1<? super Movie> onNext = new Action1<Movie>() {
-            @Override
-            public void call(Movie movie) {
-                displayMovieDetails(movie);
-            }
-        };
-
-        Action1<Throwable> onError = new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                displayLoadingErrorMessage(throwable);
-            }
-        };
-
         getMovieDetailsUseCase.execute(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
+                .subscribe(this::displayMovieDetails, this::displayLoadingErrorMessage);
 
         loadSimilarMovies(movieId);
     }
@@ -54,23 +39,9 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     }
 
     private void loadSimilarMovies(int movieId) {
-        Action1<? super List<Movie>> onNext = new Action1<List<Movie>>() {
-            @Override
-            public void call(List<Movie> movies) {
-                displaySimilarMovies(movies);
-            }
-        };
-
-        Action1<Throwable> onError = new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                view.hideSimilarMoviesPanel();
-            }
-        };
-
         listSimilarMoviesUseCase.execute(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
+                .subscribe(this::displaySimilarMovies, error -> view.hideSimilarMoviesPanel());
     }
 
     private void displayMovieDetails(Movie movie) {

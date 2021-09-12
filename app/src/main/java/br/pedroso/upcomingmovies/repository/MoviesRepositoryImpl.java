@@ -1,6 +1,7 @@
 package br.pedroso.upcomingmovies.repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -8,12 +9,11 @@ import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.network.entities.RetrofitMovieEntity;
 import br.pedroso.upcomingmovies.network.services.TheMovieDbService;
-import rx.Observable;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MoviesRepositoryImpl implements MoviesRepository {
-    private TheMovieDbService theMovieDbService;
+    private final TheMovieDbService theMovieDbService;
 
     @Inject
     public MoviesRepositoryImpl(TheMovieDbService theMovieDbService) {
@@ -21,51 +21,37 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     }
 
     @Override
-    public Observable<List<Movie>> listUpcomingMovies() {
+    public Single<List<Movie>> listUpcomingMovies() {
         return theMovieDbService.listUpcomingMovies()
-                .flatMap(new Func1<List<RetrofitMovieEntity>, Observable<RetrofitMovieEntity>>() {
-                    @Override
-                    public Observable<RetrofitMovieEntity> call(List<RetrofitMovieEntity> retrofitMovieEntities) {
-                        return Observable.from(retrofitMovieEntities);
-                    }
-                }).map(new RetrofitMovieEntityToMovieMapper())
-                .toList()
+                .map(retrofitMovieEntities -> retrofitMovieEntities.stream().map(new RetrofitMovieEntityToMovieMapper()).collect(Collectors.toList()))
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Observable<Movie> getMovieDetails(Integer movieId) {
+    public Single<Movie> getMovieDetails(Integer movieId) {
         return theMovieDbService.getMovieDetails(movieId)
-                .map(new RetrofitMovieEntityToMovieMapper())
+                .map(retrofitMovieEntity -> new RetrofitMovieEntityToMovieMapper().apply(retrofitMovieEntity))
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Observable<List<Movie>> listSimilarMovies(Integer movieId) {
+    public Single<List<Movie>> listSimilarMovies(Integer movieId) {
         return theMovieDbService.listSimilarMovies(movieId)
-                .flatMap(new Func1<List<RetrofitMovieEntity>, Observable<RetrofitMovieEntity>>() {
-                    @Override
-                    public Observable<RetrofitMovieEntity> call(List<RetrofitMovieEntity> retrofitMovieEntities) {
-                        return Observable.from(retrofitMovieEntities);
-                    }
-                }).map(new RetrofitMovieEntityToMovieMapper())
-                .toList()
+                .map(retrofitMovieEntities -> retrofitMovieEntities.stream().map(new RetrofitMovieEntityToMovieMapper()).collect(Collectors.toList()))
                 .subscribeOn(Schedulers.io());
     }
 
-    private class RetrofitMovieEntityToMovieMapper implements Func1<RetrofitMovieEntity, Movie> {
+    private class RetrofitMovieEntityToMovieMapper implements java.util.function.Function<RetrofitMovieEntity, Movie> {
         public static final String IMAGE_TMDB_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
         @Override
-        public Movie call(RetrofitMovieEntity retrofitMovieEntity) {
-            Movie movie = new Movie.Builder(retrofitMovieEntity.getId(), retrofitMovieEntity.getTitle())
+        public Movie apply(RetrofitMovieEntity retrofitMovieEntity) {
+            return new Movie.Builder(retrofitMovieEntity.getId(), retrofitMovieEntity.getTitle())
                     .setPosterPath(IMAGE_TMDB_BASE_URL + retrofitMovieEntity.getPosterPath())
                     .setOverview(retrofitMovieEntity.getOverview())
                     .setReleaseDate(retrofitMovieEntity.getReleaseDate())
                     .setVoteAverage(retrofitMovieEntity.getVoteAverage())
                     .build();
-
-            return movie;
         }
     }
 }

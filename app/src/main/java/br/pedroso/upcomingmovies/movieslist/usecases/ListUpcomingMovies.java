@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.domain.Movie;
-import rx.Observable;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
+import io.reactivex.rxjava3.core.Single;
 
 public class ListUpcomingMovies {
 
@@ -17,7 +17,7 @@ public class ListUpcomingMovies {
         this.moviesRepository = moviesRepository;
     }
 
-    public Observable<List<Movie>> execute() {
+    public Single<List<Movie>> execute() {
         return moviesRepository.listUpcomingMovies();
     }
 }

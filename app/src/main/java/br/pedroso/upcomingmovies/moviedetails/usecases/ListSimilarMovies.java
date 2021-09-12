@@ -2,9 +2,9 @@ package br.pedroso.upcomingmovies.moviedetails.usecases;
 
 import java.util.List;
 
-import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.domain.Movie;
-import rx.Observable;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
+import io.reactivex.rxjava3.core.Single;
 
 public class ListSimilarMovies {
     private final MoviesRepository moviesRepository;
@@ -13,7 +13,7 @@ public class ListSimilarMovies {
         this.moviesRepository = moviesRepository;
     }
 
-    public Observable<List<Movie>> execute(Integer movieId) {
+    public Single<List<Movie>> execute(Integer movieId) {
         return moviesRepository.listSimilarMovies(movieId);
     }
 }

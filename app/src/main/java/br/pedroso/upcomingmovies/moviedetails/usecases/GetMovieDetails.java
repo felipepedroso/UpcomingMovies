@@ -2,9 +2,9 @@ package br.pedroso.upcomingmovies.moviedetails.usecases;
 
 import javax.inject.Inject;
 
-import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.domain.Movie;
-import rx.Observable;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
+import io.reactivex.rxjava3.core.Single;
 
 public class GetMovieDetails {
     private MoviesRepository moviesRepository;
@@ -14,7 +14,7 @@ public class GetMovieDetails {
         this.moviesRepository = moviesRepository;
     }
 
-    public Observable<Movie> execute(Integer movieId) {
+    public Single<Movie> execute(Integer movieId) {
         return moviesRepository.getMovieDetails(movieId);
     }
 }

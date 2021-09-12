@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import br.pedroso.upcomingmovies.movieslist.usecases.ListUpcomingMovies;
-import br.pedroso.upcomingmovies.domain.Movie;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
     private static final String LOG_TAG = MoviesPresenter.class.getName();
@@ -33,23 +33,9 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     private void loadUpcomingMovies() {
         view.cleanMoviesList();
 
-        Action1<? super List<Movie>> onNext = new Action1<List<Movie>>() {
-            @Override
-            public void call(List<Movie> movies) {
-                displayLoadedMovies(movies);
-            }
-        };
-
-        Action1<Throwable> onError = new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                displayErrorOnLoadingMessage(throwable);
-            }
-        };
-
         listUpcomingMoviesUseCase.execute()
                 .observeOn(AndroidSchedulers.mainThread()) // TODO: improve this.
-                .subscribe(onNext, onError);
+                .subscribe(this::displayLoadedMovies, this::displayErrorOnLoadingMessage);
     }
 
     private void displayErrorOnLoadingMessage(Throwable throwable) {
