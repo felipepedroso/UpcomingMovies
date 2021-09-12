@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.repository.MoviesRepositoryImpl;
-import br.pedroso.upcomingmovies.retrofit.services.TheMovieDbService;
+import br.pedroso.upcomingmovies.network.services.TheMovieDbService;
 import dagger.Module;
 import dagger.Provides;
 

@@ -1,8 +1,8 @@
-package br.pedroso.upcomingmovies.retrofit.services;
+package br.pedroso.upcomingmovies.network.services;
 
 import java.util.List;
 
-import br.pedroso.upcomingmovies.retrofit.entities.RetrofitMovieEntity;
+import br.pedroso.upcomingmovies.network.entities.RetrofitMovieEntity;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
