@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.moviedetails.presenter;
+package br.pedroso.upcomingmovies.moviedetails;
 
 import java.util.List;
 
@@ -6,26 +6,25 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
-import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsView;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
+public class MovieDetailsPresenter {
 
-    private final MovieDetailsContract.View view;
+    private final MovieDetailsView view;
 
     private final MoviesRepository moviesRepository;
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
-    public MovieDetailsPresenter(MovieDetailsContract.View view, MoviesRepository moviesRepository) {
+    public MovieDetailsPresenter(MovieDetailsView view, MoviesRepository moviesRepository) {
         this.view = view;
         this.moviesRepository = moviesRepository;
     }
 
-    @Override
     public void loadMovieDetails(int movieId) {
         Disposable disposable = moviesRepository.getMovieDetails(movieId)
                 .observeOn(AndroidSchedulers.mainThread())

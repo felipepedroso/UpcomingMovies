@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.moviedetails.ui;
+package br.pedroso.upcomingmovies.moviedetails;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -28,12 +28,11 @@ import br.pedroso.upcomingmovies.MoviesApplication;
 import br.pedroso.upcomingmovies.R;
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.domain.Movie;
-import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import br.pedroso.upcomingmovies.moviedetails.di.DaggerMovieDetailsComponent;
 import br.pedroso.upcomingmovies.moviedetails.di.MovieDetailsPresenterModule;
-import br.pedroso.upcomingmovies.moviedetails.presenter.MovieDetailsPresenter;
+import br.pedroso.upcomingmovies.moviedetails.adapter.SimilarMoviesAdapter;
 
-public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsContract.View {
+public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsView {
     public static final String EXTRA_MOVIE_ID = "movie_id";
 
     @Inject

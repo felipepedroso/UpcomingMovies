@@ -2,7 +2,7 @@ package br.pedroso.upcomingmovies.moviedetails.di;
 
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.di.scopes.FragmentScope;
-import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsActivity;
 import dagger.Component;
 
 @FragmentScope

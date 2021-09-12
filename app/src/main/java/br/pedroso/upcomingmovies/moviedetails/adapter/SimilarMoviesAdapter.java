@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.moviedetails.ui;
+package br.pedroso.upcomingmovies.moviedetails.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

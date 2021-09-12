@@ -13,7 +13,7 @@ import br.pedroso.upcomingmovies.MoviesApplication;
 import br.pedroso.upcomingmovies.databinding.ActivityMoviesBinding;
 import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.domain.Movie;
-import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsActivity;
 import br.pedroso.upcomingmovies.movieslist.adapter.MoviesAdapter;
 import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent;
 import br.pedroso.upcomingmovies.movieslist.di.MoviesPresenterModule;
