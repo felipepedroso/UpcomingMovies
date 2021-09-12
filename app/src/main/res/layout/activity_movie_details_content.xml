@@ -1,108 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingTop="24dp"
-    android:paddingRight="16dp">
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="16dp">
 
-
-    <androidx.cardview.widget.CardView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/card_default_elevation"
-        app:cardCornerRadius="@dimen/card_default_radius">
+        android:layout_marginBottom="4dp"
+        android:text="@string/textView_movie_title_label"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/card_default_paddingHorizontal"
-            android:paddingTop="@dimen/card_default_paddingVertical"
-            android:paddingRight="@dimen/card_default_paddingHorizontal"
-            android:paddingBottom="@dimen/card_default_paddingVertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textView_movie_title_label"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:id="@+id/textViewMovieTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_text_marginBottom"
-                android:textAppearance="?android:textAppearance" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textView_movie_release_date_label"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:id="@+id/textViewMovieReleaseDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_text_marginBottom"
-                android:textAppearance="?android:textAppearance" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textView_movie_rating_label"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:id="@+id/textViewMovieVoteAverage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_text_marginBottom"
-                android:textAppearance="?android:textAppearance" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textView_movie_overview_label"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-            <TextView
-                android:id="@+id/textViewMovieOverview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearance" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewSimilarMovies"
+    <TextView
+        android:id="@+id/textViewMovieTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/card_default_elevation"
-        app:cardCornerRadius="@dimen/card_default_radius">
+        android:textAppearance="?attr/textAppearanceBody1"
+        tools:text="@tools:sample/lorem" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/card_default_paddingHorizontal"
-            android:paddingTop="@dimen/card_default_paddingVertical"
-            android:paddingRight="@dimen/card_default_paddingHorizontal"
-            android:paddingBottom="@dimen/card_default_paddingVertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/textView_movie_release_date_label"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textView_similar_movies_label"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+    <TextView
+        android:id="@+id/textViewMovieReleaseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody1"
+        tools:text="@tools:sample/lorem" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewSimilarMovies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/textView_movie_rating_label"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <TextView
+        android:id="@+id/textViewMovieVoteAverage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody1"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/textView_movie_overview_label"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <TextView
+        android:id="@+id/textViewMovieOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody1"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/textView_similar_movies_label"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSimilarMovies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_similar_movie" />
+
 </LinearLayout>

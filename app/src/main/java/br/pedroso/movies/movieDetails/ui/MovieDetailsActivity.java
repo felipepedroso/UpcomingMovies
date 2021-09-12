@@ -49,7 +49,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     private TextView textViewMovieTitle;
     private RecyclerView recyclerViewSimilarMovies;
     private SimilarMoviesAdapter similarMoviesAdapter;
-    private CardView cardViewSimilarMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +85,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         textViewMovieVoteAverage = (TextView) findViewById(R.id.textViewMovieVoteAverage);
         textViewMovieOverview = (TextView) findViewById(R.id.textViewMovieOverview);
         collapsingToolbarMovieDetails = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarMovieDetails);
-        cardViewSimilarMovies = (CardView) findViewById(R.id.cardViewSimilarMovies);
         recyclerViewSimilarMovies = (RecyclerView) findViewById(R.id.recyclerViewSimilarMovies);
     }
 
@@ -153,12 +151,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
     @Override
     public void hideSimilarMoviesPanel() {
-        cardViewSimilarMovies.setVisibility(View.GONE);
+//        cardViewSimilarMovies.setVisibility(View.GONE);
     }
 
     @Override
     public void displaySimilarMoviesPanel() {
-        cardViewSimilarMovies.setVisibility(View.VISIBLE);
+//        cardViewSimilarMovies.setVisibility(View.VISIBLE);
     }
 
     @Override
