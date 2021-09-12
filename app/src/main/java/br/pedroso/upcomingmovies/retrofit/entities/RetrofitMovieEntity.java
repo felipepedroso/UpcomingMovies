@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.shared.data.retrofit.entities;
+package br.pedroso.upcomingmovies.retrofit.entities;
 
 public class RetrofitMovieEntity {
     private Integer id;

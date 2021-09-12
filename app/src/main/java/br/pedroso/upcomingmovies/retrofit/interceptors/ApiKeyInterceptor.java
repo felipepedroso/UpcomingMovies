@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.shared.data.retrofit.interceptors;
+package br.pedroso.upcomingmovies.retrofit.interceptors;
 
 import java.io.IOException;
 

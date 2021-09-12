@@ -7,9 +7,9 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
-import br.pedroso.upcomingmovies.shared.data.retrofit.deserializer.UpcomingMoviesResultDeserializer;
-import br.pedroso.upcomingmovies.shared.data.retrofit.interceptors.ApiKeyInterceptor;
-import br.pedroso.upcomingmovies.shared.data.retrofit.services.TheMovieDbService;
+import br.pedroso.upcomingmovies.retrofit.deserializer.UpcomingMoviesResultDeserializer;
+import br.pedroso.upcomingmovies.retrofit.interceptors.ApiKeyInterceptor;
+import br.pedroso.upcomingmovies.retrofit.services.TheMovieDbService;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;

@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
-import br.pedroso.upcomingmovies.shared.data.retrofit.entities.RetrofitMovieEntity;
-import br.pedroso.upcomingmovies.shared.data.retrofit.services.TheMovieDbService;
+import br.pedroso.upcomingmovies.retrofit.entities.RetrofitMovieEntity;
+import br.pedroso.upcomingmovies.retrofit.services.TheMovieDbService;
 import rx.Observable;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
