@@ -3,17 +3,17 @@ package br.pedroso.movies.movies.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
-import com.ciandt.moviespoc.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import br.pedroso.movies.MoviesApplication;
+import br.pedroso.movies.R;
 import br.pedroso.movies.di.application.ApplicationComponent;
 import br.pedroso.movies.di.movies.DaggerMoviesComponent;
 import br.pedroso.movies.di.movies.MoviesPresenterModule;

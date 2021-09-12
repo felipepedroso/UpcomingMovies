@@ -1,9 +1,8 @@
 package br.pedroso.movies.shared.data;
 
-import br.pedroso.movies.shared.domain.Movie;
-
 import java.util.List;
 
+import br.pedroso.movies.shared.domain.Movie;
 import rx.Observable;
 
 public interface MoviesRepository {

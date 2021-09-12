@@ -3,7 +3,6 @@ package br.pedroso.movies.di.movies;
 import br.pedroso.movies.di.application.ApplicationComponent;
 import br.pedroso.movies.di.scopes.FragmentScope;
 import br.pedroso.movies.movies.ui.MoviesActivity;
-
 import dagger.Component;
 
 @FragmentScope

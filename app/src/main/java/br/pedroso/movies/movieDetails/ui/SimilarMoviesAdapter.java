@@ -1,21 +1,22 @@
 package br.pedroso.movies.movieDetails.ui;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.ciandt.moviespoc.R;
-import br.pedroso.movies.shared.domain.Movie;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimilarMoviesAdapter extends RecyclerView.Adapter<SimilarMoviesAdapter.ViewHolder>{
+import br.pedroso.movies.R;
+import br.pedroso.movies.shared.domain.Movie;
+
+public class SimilarMoviesAdapter extends RecyclerView.Adapter<SimilarMoviesAdapter.ViewHolder> {
     private final Context context;
     private List<Movie> moviesList;
 

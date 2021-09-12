@@ -1,14 +1,13 @@
 package br.pedroso.movies.shared.data.retrofit;
 
-import br.pedroso.movies.shared.data.dataSource.DataSource;
-import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
-import br.pedroso.movies.shared.data.retrofit.services.TheMovieDbService;
-import br.pedroso.movies.shared.domain.Movie;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
+import br.pedroso.movies.shared.data.dataSource.DataSource;
+import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
+import br.pedroso.movies.shared.data.retrofit.services.TheMovieDbService;
+import br.pedroso.movies.shared.domain.Movie;
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.functions.Func1;

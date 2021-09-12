@@ -14,7 +14,7 @@ public class GetMovieDetails {
         this.moviesRepository = moviesRepository;
     }
 
-    public Observable<Movie> execute(Integer movieId){
+    public Observable<Movie> execute(Integer movieId) {
         return moviesRepository.getMovieDetails(movieId);
     }
 }

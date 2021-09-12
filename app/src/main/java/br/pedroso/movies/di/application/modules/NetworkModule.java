@@ -2,13 +2,13 @@ package br.pedroso.movies.di.application.modules;
 
 import android.app.Application;
 
-import br.pedroso.movies.shared.data.retrofit.deserializer.UpcomingMoviesResultDeserializer;
-import br.pedroso.movies.shared.data.retrofit.interceptors.ApiKeyInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
+import br.pedroso.movies.shared.data.retrofit.deserializer.UpcomingMoviesResultDeserializer;
+import br.pedroso.movies.shared.data.retrofit.interceptors.ApiKeyInterceptor;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;

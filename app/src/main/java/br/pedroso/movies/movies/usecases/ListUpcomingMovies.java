@@ -11,7 +11,7 @@ import rx.Observable;
 public class ListUpcomingMovies {
 
     private MoviesRepository moviesRepository;
-    
+
     @Inject
     public ListUpcomingMovies(MoviesRepository moviesRepository) {
         this.moviesRepository = moviesRepository;

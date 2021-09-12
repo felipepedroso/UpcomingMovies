@@ -1,12 +1,11 @@
 package br.pedroso.movies.di.application.modules;
 
+import javax.inject.Singleton;
+
+import br.pedroso.movies.shared.data.MoviesRepository;
 import br.pedroso.movies.shared.data.dataSource.DataSource;
 import br.pedroso.movies.shared.data.repository.MoviesRepositoryImpl;
 import br.pedroso.movies.shared.data.retrofit.RetrofitDataSource;
-import br.pedroso.movies.shared.data.MoviesRepository;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;

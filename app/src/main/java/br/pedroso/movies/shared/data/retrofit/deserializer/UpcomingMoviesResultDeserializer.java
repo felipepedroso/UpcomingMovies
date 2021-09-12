@@ -1,6 +1,5 @@
 package br.pedroso.movies.shared.data.retrofit.deserializer;
 
-import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -10,6 +9,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+
+import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
 
 public class UpcomingMoviesResultDeserializer implements JsonDeserializer<List<RetrofitMovieEntity>> {
 

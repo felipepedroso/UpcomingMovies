@@ -3,14 +3,12 @@ package br.pedroso.movies;
 
 import android.app.Application;
 
-import com.ciandt.moviespoc.BuildConfig;
-
 import br.pedroso.movies.di.application.ApplicationComponent;
 import br.pedroso.movies.di.application.DaggerApplicationComponent;
-import br.pedroso.movies.shared.data.retrofit.services.TheMovieDbService;
 import br.pedroso.movies.di.application.modules.ApplicationModule;
 import br.pedroso.movies.di.application.modules.NetworkModule;
 import br.pedroso.movies.di.application.modules.RepositoryModule;
+import br.pedroso.movies.shared.data.retrofit.services.TheMovieDbService;
 
 public class MoviesApplication extends Application {
 

@@ -1,9 +1,8 @@
 package br.pedroso.movies.shared.data.retrofit.services;
 
-import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
-
 import java.util.List;
 
+import br.pedroso.movies.shared.data.retrofit.entities.RetrofitMovieEntity;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import br.pedroso.movies.movies.MoviesContract;
 import br.pedroso.movies.movies.usecases.ListUpcomingMovies;
 import br.pedroso.movies.shared.domain.Movie;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -41,7 +40,7 @@ public class MoviesPresenter implements MoviesContract.Presenter {
             }
         };
 
-        Action1<Throwable> onError =  new Action1<Throwable>() {
+        Action1<Throwable> onError = new Action1<Throwable>() {
             @Override
             public void call(Throwable throwable) {
                 displayErrorOnLoadingMessage(throwable);
