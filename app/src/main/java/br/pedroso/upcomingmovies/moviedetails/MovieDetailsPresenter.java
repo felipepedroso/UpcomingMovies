@@ -63,4 +63,8 @@ public class MovieDetailsPresenter {
     public void pause() {
         disposables.clear();
     }
+
+    public void clickedOnSimilarMovie(Movie movie) {
+        view.startMovieDetailsActivity(movie.getId());
+    }
 }

@@ -12,4 +12,6 @@ public interface MovieDetailsView {
     void renderSimilarMovies(List<Movie> movies);
 
     void displaySimilarMoviesPanel();
+
+    void startMovieDetailsActivity(Integer id);
 }

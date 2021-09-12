@@ -1,9 +1,9 @@
 package br.pedroso.upcomingmovies.moviedetails;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -43,9 +43,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        setupView();
-
         injectPresenter();
+
+        setupView();
     }
 
     private void setupView() {
@@ -59,7 +59,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     }
 
     private void setupSimilarMoviesRecyclerView() {
-        similarMoviesAdapter = new SimilarMoviesAdapter(this);
+        similarMoviesAdapter = new SimilarMoviesAdapter(presenter::clickedOnSimilarMovie);
         binding.movieDetailsContent.recyclerViewSimilarMovies.setAdapter(similarMoviesAdapter);
     }
 
@@ -116,9 +116,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         binding.collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary));
         binding.collapsingToolbarMovieDetails.setStatusBarScrimColor(palette.getDarkMutedColor(primaryDark));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(palette.getDarkMutedColor(primaryDark));
-        }
+        getWindow().setStatusBarColor(palette.getDarkMutedColor(primaryDark));
     }
 
     @Override
@@ -129,6 +127,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @Override
     public void displaySimilarMoviesPanel() {
 //        cardViewSimilarMovies.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void startMovieDetailsActivity(Integer movieId) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movieId);
+        startActivity(intent);
     }
 
     @Override
