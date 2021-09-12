@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.di.application.modules;
+package br.pedroso.upcomingmovies.di;
 
 import android.app.Application;
 

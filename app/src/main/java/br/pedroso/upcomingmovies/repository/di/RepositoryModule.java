@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.di.application.modules;
+package br.pedroso.upcomingmovies.repository.di;
 
 import javax.inject.Singleton;
 

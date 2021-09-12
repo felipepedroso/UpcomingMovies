@@ -1,10 +1,9 @@
-package br.pedroso.upcomingmovies.di.application;
+package br.pedroso.upcomingmovies.di;
 
 import javax.inject.Singleton;
 
-import br.pedroso.upcomingmovies.di.application.modules.ApplicationModule;
-import br.pedroso.upcomingmovies.di.application.modules.NetworkModule;
-import br.pedroso.upcomingmovies.di.application.modules.RepositoryModule;
+import br.pedroso.upcomingmovies.network.di.NetworkModule;
+import br.pedroso.upcomingmovies.repository.di.RepositoryModule;
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import dagger.Component;
 

@@ -1,6 +1,6 @@
-package br.pedroso.upcomingmovies.di.movies;
+package br.pedroso.upcomingmovies.movieslist.di;
 
-import br.pedroso.upcomingmovies.di.application.ApplicationComponent;
+import br.pedroso.upcomingmovies.di.ApplicationComponent;
 import br.pedroso.upcomingmovies.di.scopes.FragmentScope;
 import br.pedroso.upcomingmovies.movieslist.ui.MoviesActivity;
 import dagger.Component;

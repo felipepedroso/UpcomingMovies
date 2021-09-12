@@ -26,9 +26,9 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.MoviesApplication;
 import br.pedroso.upcomingmovies.R;
-import br.pedroso.upcomingmovies.di.application.ApplicationComponent;
-import br.pedroso.upcomingmovies.di.movieDetails.DaggerMovieDetailsComponent;
-import br.pedroso.upcomingmovies.di.movieDetails.MovieDetailsPresenterModule;
+import br.pedroso.upcomingmovies.di.ApplicationComponent;
+import br.pedroso.upcomingmovies.moviedetails.di.DaggerMovieDetailsComponent;
+import br.pedroso.upcomingmovies.moviedetails.di.MovieDetailsPresenterModule;
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import br.pedroso.upcomingmovies.moviedetails.presenter.MovieDetailsPresenter;
 import br.pedroso.upcomingmovies.domain.Movie;

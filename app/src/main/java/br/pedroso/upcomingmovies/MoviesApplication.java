@@ -3,12 +3,11 @@ package br.pedroso.upcomingmovies;
 
 import android.app.Application;
 
-import br.pedroso.upcomingmovies.di.application.ApplicationComponent;
-import br.pedroso.upcomingmovies.di.application.DaggerApplicationComponent;
-import br.pedroso.upcomingmovies.di.application.modules.ApplicationModule;
-import br.pedroso.upcomingmovies.di.application.modules.NetworkModule;
-import br.pedroso.upcomingmovies.di.application.modules.RepositoryModule;
-import br.pedroso.upcomingmovies.network.services.TheMovieDbService;
+import br.pedroso.upcomingmovies.di.ApplicationComponent;
+import br.pedroso.upcomingmovies.di.ApplicationModule;
+import br.pedroso.upcomingmovies.di.DaggerApplicationComponent;
+import br.pedroso.upcomingmovies.network.di.NetworkModule;
+import br.pedroso.upcomingmovies.repository.di.RepositoryModule;
 
 public class MoviesApplication extends Application {
 
@@ -24,7 +23,7 @@ public class MoviesApplication extends Application {
     private void createApplicationComponent() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .networkModule(new NetworkModule(TheMovieDbService.BASE_URL, BuildConfig.MOVIES_DB_API_KEY))
+                .networkModule(new NetworkModule(BuildConfig.MOVIES_DB_API_KEY))
                 .repositoryModule(new RepositoryModule())
                 .build();
     }

@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.di.movies;
+package br.pedroso.upcomingmovies.movieslist.di;
 
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import br.pedroso.upcomingmovies.movieslist.usecases.ListUpcomingMovies;

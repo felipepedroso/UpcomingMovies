@@ -14,13 +14,13 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.MoviesApplication;
 import br.pedroso.upcomingmovies.R;
-import br.pedroso.upcomingmovies.di.application.ApplicationComponent;
-import br.pedroso.upcomingmovies.di.movies.DaggerMoviesComponent;
-import br.pedroso.upcomingmovies.di.movies.MoviesPresenterModule;
+import br.pedroso.upcomingmovies.di.ApplicationComponent;
+import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
+import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent;
+import br.pedroso.upcomingmovies.movieslist.di.MoviesPresenterModule;
 import br.pedroso.upcomingmovies.movieslist.presenter.MoviesPresenter;
-import br.pedroso.upcomingmovies.domain.Movie;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesContract.View, MoviesAdapter.OnMovieClickListener {
 

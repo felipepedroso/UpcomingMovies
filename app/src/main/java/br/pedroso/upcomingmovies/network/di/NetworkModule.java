@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.di.application.modules;
+package br.pedroso.upcomingmovies.network.di;
 
 import android.app.Application;
 
@@ -20,13 +20,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
-    private final String baseUrl;
     private final String apiKey;
 
     private final long CACHE_SIZE = 10 * 1024 * 1024;
 
-    public NetworkModule(String baseUrl, String apiKey) {
-        this.baseUrl = baseUrl;
+    public NetworkModule(String apiKey) {
         this.apiKey = apiKey;
     }
 
@@ -71,7 +69,7 @@ public class NetworkModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .baseUrl(baseUrl)
+                .baseUrl(TheMovieDbService.BASE_URL)
                 .client(httpClient)
                 .build();
 

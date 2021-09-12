@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.di.movieDetails;
+package br.pedroso.upcomingmovies.moviedetails.di;
 
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import br.pedroso.upcomingmovies.moviedetails.usecases.GetMovieDetails;
