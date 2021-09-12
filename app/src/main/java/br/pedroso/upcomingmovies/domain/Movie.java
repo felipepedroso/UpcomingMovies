@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.shared.domain;
+package br.pedroso.upcomingmovies.domain;
 
 public class Movie {
     private Integer id;

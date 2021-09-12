@@ -3,7 +3,7 @@ package br.pedroso.upcomingmovies.moviedetails.usecases;
 import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.shared.data.MoviesRepository;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 import rx.Observable;
 
 public class GetMovieDetails {

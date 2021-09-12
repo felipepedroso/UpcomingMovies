@@ -2,7 +2,7 @@ package br.pedroso.upcomingmovies.shared.data.dataSource;
 
 import java.util.List;
 
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 import rx.Observable;
 
 public interface DataSource {

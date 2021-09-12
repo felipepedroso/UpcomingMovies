@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.pedroso.upcomingmovies.R;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 
 public class SimilarMoviesAdapter extends RecyclerView.Adapter<SimilarMoviesAdapter.ViewHolder> {
     private final Context context;

@@ -20,7 +20,7 @@ import br.pedroso.upcomingmovies.di.movies.MoviesPresenterModule;
 import br.pedroso.upcomingmovies.moviedetails.ui.MovieDetailsActivity;
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import br.pedroso.upcomingmovies.movieslist.presenter.MoviesPresenter;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesContract.View, MoviesAdapter.OnMovieClickListener {
 

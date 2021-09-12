@@ -31,7 +31,7 @@ import br.pedroso.upcomingmovies.di.movieDetails.DaggerMovieDetailsComponent;
 import br.pedroso.upcomingmovies.di.movieDetails.MovieDetailsPresenterModule;
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import br.pedroso.upcomingmovies.moviedetails.presenter.MovieDetailsPresenter;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsContract.View {
     public static final String EXTRA_MOVIE_ID = "movie_id";

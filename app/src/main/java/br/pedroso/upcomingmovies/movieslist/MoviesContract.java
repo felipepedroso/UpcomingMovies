@@ -2,7 +2,7 @@ package br.pedroso.upcomingmovies.movieslist;
 
 import java.util.List;
 
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 
 public interface MoviesContract {
     interface Presenter {

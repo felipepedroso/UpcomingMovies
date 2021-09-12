@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import br.pedroso.upcomingmovies.movieslist.usecases.ListUpcomingMovies;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

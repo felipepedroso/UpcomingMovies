@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import br.pedroso.upcomingmovies.shared.data.MoviesRepository;
 import br.pedroso.upcomingmovies.shared.data.dataSource.DataSource;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 

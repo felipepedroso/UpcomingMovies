@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import br.pedroso.upcomingmovies.moviedetails.usecases.GetMovieDetails;
 import br.pedroso.upcomingmovies.moviedetails.usecases.ListSimilarMovies;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

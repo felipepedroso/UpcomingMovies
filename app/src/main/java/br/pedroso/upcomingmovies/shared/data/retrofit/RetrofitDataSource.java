@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import br.pedroso.upcomingmovies.shared.data.dataSource.DataSource;
 import br.pedroso.upcomingmovies.shared.data.retrofit.entities.RetrofitMovieEntity;
 import br.pedroso.upcomingmovies.shared.data.retrofit.services.TheMovieDbService;
-import br.pedroso.upcomingmovies.shared.domain.Movie;
+import br.pedroso.upcomingmovies.domain.Movie;
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.functions.Func1;
