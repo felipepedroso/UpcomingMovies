@@ -1,4 +1,4 @@
-package br.pedroso.upcomingmovies.shared.data.repository;
+package br.pedroso.upcomingmovies.repository;
 
 import java.util.List;
 
