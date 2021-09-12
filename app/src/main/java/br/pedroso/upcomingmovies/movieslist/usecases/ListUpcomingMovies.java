@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.pedroso.upcomingmovies.shared.data.MoviesRepository;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.domain.Movie;
 import rx.Observable;
 

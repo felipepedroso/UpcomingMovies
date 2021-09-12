@@ -2,7 +2,7 @@ package br.pedroso.upcomingmovies.di.movies;
 
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import br.pedroso.upcomingmovies.movieslist.usecases.ListUpcomingMovies;
-import br.pedroso.upcomingmovies.shared.data.MoviesRepository;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import dagger.Module;
 import dagger.Provides;
 

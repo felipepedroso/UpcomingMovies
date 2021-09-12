@@ -1,8 +1,7 @@
-package br.pedroso.upcomingmovies.shared.data;
+package br.pedroso.upcomingmovies.domain;
 
 import java.util.List;
 
-import br.pedroso.upcomingmovies.domain.Movie;
 import rx.Observable;
 
 public interface MoviesRepository {

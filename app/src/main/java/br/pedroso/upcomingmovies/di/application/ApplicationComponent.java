@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import br.pedroso.upcomingmovies.di.application.modules.ApplicationModule;
 import br.pedroso.upcomingmovies.di.application.modules.NetworkModule;
 import br.pedroso.upcomingmovies.di.application.modules.RepositoryModule;
-import br.pedroso.upcomingmovies.shared.data.MoviesRepository;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import dagger.Component;
 
 @Singleton

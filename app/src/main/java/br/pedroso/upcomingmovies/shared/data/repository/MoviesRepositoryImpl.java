@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.pedroso.upcomingmovies.shared.data.MoviesRepository;
-import br.pedroso.upcomingmovies.shared.data.dataSource.DataSource;
+import br.pedroso.upcomingmovies.domain.DataSource;
 import br.pedroso.upcomingmovies.domain.Movie;
+import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
