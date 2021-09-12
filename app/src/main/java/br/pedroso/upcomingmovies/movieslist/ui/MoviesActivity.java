@@ -46,6 +46,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         presenter.resume();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.pause();
+    }
+
     private void setupView() {
         setContentView(R.layout.activity_movies);
 

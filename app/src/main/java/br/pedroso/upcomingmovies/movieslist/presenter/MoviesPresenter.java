@@ -10,6 +10,8 @@ import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.movieslist.MoviesContract;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MoviesPresenter implements MoviesContract.Presenter {
     private static final String LOG_TAG = MoviesPresenter.class.getName();
@@ -17,6 +19,8 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     private final MoviesContract.View view;
 
     private final MoviesRepository moviesRepository;
+
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
     MoviesPresenter(MoviesContract.View view, MoviesRepository moviesRepository) {
@@ -32,9 +36,11 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     private void loadUpcomingMovies() {
         view.cleanMoviesList();
 
-        moviesRepository.listUpcomingMovies()
+        Disposable disposable = moviesRepository.listUpcomingMovies()
                 .observeOn(AndroidSchedulers.mainThread()) // TODO: improve this.
                 .subscribe(this::displayLoadedMovies, this::displayErrorOnLoadingMessage);
+
+        disposables.add(disposable);
     }
 
     private void displayErrorOnLoadingMessage(Throwable throwable) {
@@ -50,5 +56,9 @@ public class MoviesPresenter implements MoviesContract.Presenter {
         Log.d(LOG_TAG, "Clicked on the movie: " + movie);
 
         view.startMovieDetailsActivity(movie.getId());
+    }
+
+    public void pause() {
+        disposables.clear();
     }
 }

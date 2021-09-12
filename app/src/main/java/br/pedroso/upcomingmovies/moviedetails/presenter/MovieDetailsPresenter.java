@@ -8,12 +8,16 @@ import br.pedroso.upcomingmovies.domain.Movie;
 import br.pedroso.upcomingmovies.domain.MoviesRepository;
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsContract;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
     private final MovieDetailsContract.View view;
 
     private final MoviesRepository moviesRepository;
+
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
     public MovieDetailsPresenter(MovieDetailsContract.View view, MoviesRepository moviesRepository) {
@@ -23,9 +27,11 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
     @Override
     public void loadMovieDetails(int movieId) {
-        moviesRepository.getMovieDetails(movieId)
+        Disposable disposable = moviesRepository.getMovieDetails(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displayMovieDetails, this::displayLoadingErrorMessage);
+
+        disposables.add(disposable);
 
         loadSimilarMovies(movieId);
     }
@@ -35,9 +41,11 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     }
 
     private void loadSimilarMovies(int movieId) {
-        moviesRepository.listSimilarMovies(movieId)
+        Disposable disposable = moviesRepository.listSimilarMovies(movieId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::displaySimilarMovies, error -> view.hideSimilarMoviesPanel());
+
+        disposables.add(disposable);
     }
 
     private void displayMovieDetails(Movie movie) {
@@ -51,5 +59,9 @@ public class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
         } else {
             view.hideSimilarMoviesPanel();
         }
+    }
+
+    public void pause() {
+        disposables.clear();
     }
 }

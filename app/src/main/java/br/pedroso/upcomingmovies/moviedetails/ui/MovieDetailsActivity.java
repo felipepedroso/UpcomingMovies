@@ -170,4 +170,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
         presenter.loadMovieDetails(movieToBePresentedId);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        presenter.pause();
+    }
 }
