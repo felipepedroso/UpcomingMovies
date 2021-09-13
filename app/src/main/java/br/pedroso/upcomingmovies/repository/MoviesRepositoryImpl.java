@@ -42,7 +42,9 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     }
 
     private class RetrofitMovieEntityToMovieMapper implements java.util.function.Function<RetrofitMovieEntity, Movie> {
-        public static final String IMAGE_TMDB_BASE_URL = "https://image.tmdb.org/t/p/w500";
+        private final String IMAGE_TMDB_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
+        private final Double MAX_VOTE_AVERAGE = 10.0;
 
         @Override
         public Movie apply(RetrofitMovieEntity retrofitMovieEntity) {
@@ -50,7 +52,7 @@ public class MoviesRepositoryImpl implements MoviesRepository {
                     .setPosterPath(IMAGE_TMDB_BASE_URL + retrofitMovieEntity.getPosterPath())
                     .setOverview(retrofitMovieEntity.getOverview())
                     .setReleaseDate(retrofitMovieEntity.getReleaseDate())
-                    .setVoteAverage(retrofitMovieEntity.getVoteAverage())
+                    .setVoteAverage(retrofitMovieEntity.getVoteAverage() / MAX_VOTE_AVERAGE)
                     .build();
         }
     }

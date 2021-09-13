@@ -3,6 +3,8 @@ package br.pedroso.upcomingmovies.moviedetails;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -90,7 +92,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
         binding.movieDetailsContent.textViewMovieReleaseDate.setText(movie.getReleaseDate());
 
-        String votingAverageText = String.format(resources.getString(R.string.movie_rating_format), movie.getVoteAverage());
+        int numStars = resources.getInteger(R.integer.rating_bar_num_stars);
+
+        float votingAverage = (float) (numStars * movie.getVoteAverage());
+
+        binding.movieDetailsContent.ratingBarMovieVoteAverage.setRating(votingAverage);
+
+        String votingAverageText = String.format(resources.getString(R.string.movie_rating_format), votingAverage);
+
         binding.movieDetailsContent.textViewMovieVoteAverage.setText(votingAverageText);
 
         binding.movieDetailsContent.textViewMovieOverview.setText(movie.getOverview());
@@ -113,10 +122,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         int primaryDark = ContextCompat.getColor(this, R.color.colorPrimaryDark);
         int primary = ContextCompat.getColor(this, R.color.colorPrimary);
 
-        binding.collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary));
-        binding.collapsingToolbarMovieDetails.setStatusBarScrimColor(palette.getDarkMutedColor(primaryDark));
+        int darkMutedColor = palette.getDarkMutedColor(primaryDark);
 
-        getWindow().setStatusBarColor(palette.getDarkMutedColor(primaryDark));
+        binding.collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary));
+        binding.collapsingToolbarMovieDetails.setStatusBarScrimColor(darkMutedColor);
+
+        binding.imageViewMoviePoster.getDrawable().setColorFilter(new PorterDuffColorFilter(palette.getLightMutedColor(primary), PorterDuff.Mode.MULTIPLY));
+
+        getWindow().setStatusBarColor(darkMutedColor);
     }
 
     @Override
