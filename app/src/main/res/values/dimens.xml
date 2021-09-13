@@ -9,7 +9,7 @@
 
     <dimen name="similar_movie_height">180dp</dimen>
     <dimen name="similar_movie_width">120dp</dimen>
-    <dimen name="movie_poster_card_height">250dp</dimen>
+    <dimen name="movie_poster_card_height">194dp</dimen>
     <dimen name="movie_details_poster_height">400dp</dimen>
     <dimen name="textSize_subtitle">14sp</dimen>
     <dimen name="textSize_title">24sp</dimen>

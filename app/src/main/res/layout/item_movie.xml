@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:elevation="@dimen/card_default_elevation"
+    app:cardUseCompatPadding="true"
     app:cardCornerRadius="@dimen/card_default_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,20 +21,11 @@
             android:layout_height="@dimen/movie_poster_card_height"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textViewMovieTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/label_movies_overlay"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textViewMovieTitle" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -54,12 +46,13 @@
             android:id="@+id/textViewMovieTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintBottom_toTopOf="@id/textViewLabelMovieReleaseDate"
             app:layout_constraintEnd_toStartOf="@id/endGuideline"
             app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/imageViewMoviePoster"
             tools:text="@tools:sample/lorem" />
 
         <TextView
@@ -68,18 +61,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/textView_movie_release_date_label"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@android:color/white"
+            android:textAppearance="?attr/textAppearanceCaption"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/startGuideline" />
+            app:layout_constraintStart_toEndOf="@id/startGuideline"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieTitle" />
 
         <TextView
             android:id="@+id/textViewMovieReleaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@android:color/white"
+            android:textAppearance="?attr/textAppearanceCaption"
             app:layout_constraintBottom_toBottomOf="@id/textViewLabelMovieReleaseDate"
             app:layout_constraintStart_toEndOf="@id/textViewLabelMovieReleaseDate"
             app:layout_constraintTop_toTopOf="@id/textViewLabelMovieReleaseDate"
