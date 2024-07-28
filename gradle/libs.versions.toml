@@ -1,11 +1,15 @@
 [versions]
+androidGradlePlugin = "8.5.1"
 appCompat = "1.7.0"
 cardView = "1.0.0"
-daggerCompiler = "2.38.1"
+coreKtx = "1.13.1"
 dagger = "2.38.1"
+daggerCompiler = "2.38.1"
 desugarJdkLibs = "2.0.4"
-androidGradlePlugin = "8.5.1"
+espressoCore = "3.6.1"
 junit = "4.12"
+kotlin = "2.0.0"
+kotlinStdlib = "2.0.0"
 material = "1.12.0"
 palette = "1.0.0"
 picasso = "2.5.2"
@@ -15,15 +19,20 @@ rxAndroid = "3.0.0"
 rxJava = "3.1.1"
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 [libraries]
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 androidx-cardView = { module = "androidx.cardview:cardview", version.ref = "cardView" }
+androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 androidx-palette = { module = "androidx.palette:palette", version.ref = "palette" }
 androidx-recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerView" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
 desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 junit = { module = "junit:junit", version.ref = "junit" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit2-adapterRxJava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit" }
