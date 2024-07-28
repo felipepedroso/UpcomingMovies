@@ -14,4 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
+rootProject.name = "UpcomingMovies"
+include(":app")
