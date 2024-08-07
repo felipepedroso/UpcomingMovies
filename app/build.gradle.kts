@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidGradlePlugin)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -32,7 +33,6 @@ android {
     buildTypes.onEach {
         it.buildConfigField("String", "MOVIES_DB_API_KEY", properties["MovieDbApiKey"].toString())
     }
-
 
     buildFeatures {
         buildConfig = true
@@ -66,7 +66,7 @@ dependencies {
     implementation(libs.picasso)
 
     // Dagger2
-    annotationProcessor(libs.dagger.compiler)
+    kapt(libs.dagger.compiler)
     implementation(libs.dagger)
 
     // Retrofit
