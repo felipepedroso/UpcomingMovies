@@ -2,78 +2,101 @@ package br.pedroso.upcomingmovies.movieslist
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import br.pedroso.upcomingmovies.MoviesApplication
 import br.pedroso.upcomingmovies.databinding.ActivityMoviesBinding
 import br.pedroso.upcomingmovies.di.ApplicationComponent
 import br.pedroso.upcomingmovies.domain.Movie
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsActivity
+import br.pedroso.upcomingmovies.movieslist.MoviesListUiEvent.ClickedOnMovie
+import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.DisplayMovies
+import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.Empty
+import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.Error
+import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.Loading
+import br.pedroso.upcomingmovies.movieslist.MoviesListViewModelEvent.NavigateToMovieDetails
 import br.pedroso.upcomingmovies.movieslist.adapter.MoviesAdapter
 import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent
-import br.pedroso.upcomingmovies.movieslist.di.MoviesPresenterModule
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MoviesListActivity : AppCompatActivity(), MoviesListView {
+class MoviesListActivity : AppCompatActivity() {
     private var moviesAdapter: MoviesAdapter? = null
 
-    private var binding: ActivityMoviesBinding? = null
+    private val binding: ActivityMoviesBinding by lazy {
+        ActivityMoviesBinding.inflate(layoutInflater)
+    }
 
-    @JvmField
     @Inject
-    var presenter: MoviesListPresenter? = null
+    lateinit var viewModelFactory: MoviesListViewModel.Factory
+
+    private val viewModel: MoviesListViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injectPresenter()
+        injectDependencies()
         setupView()
+        observeUiState()
+        observeViewModelEvents()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter!!.resume()
+    private fun observeViewModelEvents() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewModelEvent.collect { event ->
+                    when (event) {
+                        is NavigateToMovieDetails -> startMovieDetailsActivity(event.movie)
+                    }
+                }
+            }
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        presenter!!.pause()
+    private fun observeUiState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { uiState ->
+                    when (uiState) {
+                        is DisplayMovies -> renderMoviesList(uiState.movies)
+                        Empty -> Unit // TODO: Implement empty state
+                        is Error -> Unit // TODO: Implement error state
+                        Loading -> Unit // TODO: Implement loading state
+                    }
+                }
+            }
+        }
     }
 
     private fun setupView() {
-        binding = ActivityMoviesBinding.inflate(layoutInflater)
-
-        setContentView(binding!!.root)
-
+        setContentView(binding.root)
         setupRecyclerViewMovies()
     }
 
     private fun setupRecyclerViewMovies() {
-        moviesAdapter =
-            MoviesAdapter { movie: Movie -> presenter!!.onMovieClick(movie) }
-        binding!!.recyclerViewMovies.adapter = moviesAdapter
+        moviesAdapter = MoviesAdapter { movie: Movie -> viewModel.onUiEvent(ClickedOnMovie(movie)) }
+        binding.recyclerViewMovies.adapter = moviesAdapter
     }
 
-    private fun injectPresenter() {
+    private fun injectDependencies() {
         val applicationComponent: ApplicationComponent =
             (application as MoviesApplication).applicationComponent
 
         DaggerMoviesComponent.builder()
             .applicationComponent(applicationComponent)
-            .moviesPresenterModule(MoviesPresenterModule(this))
             .build()
             .inject(this)
     }
 
-    override fun renderMoviesList(moviesList: List<Movie>) {
+    private fun renderMoviesList(moviesList: List<Movie>) {
         moviesAdapter?.updateAdapterData(moviesList)
     }
 
-    override fun startMovieDetailsActivity(movieId: Int) {
+    private fun startMovieDetailsActivity(movie: Movie) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movieId)
+        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.id)
         startActivity(intent)
-    }
-
-    override fun cleanMoviesList() {
-        moviesAdapter?.clearItems()
     }
 }

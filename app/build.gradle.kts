@@ -53,9 +53,18 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.lifecycle)
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.palette)
+    implementation(libs.androidx.activity)
+
+    implementation(libs.androidx.lifecycle.runtime)
+
+    implementation(libs.androidx.lifecycle.savedstate)
+
+    // Coroutines
+    implementation(libs.coroutines.android)
 
     // Design library
     implementation(libs.material)
@@ -81,6 +90,10 @@ dependencies {
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
     testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.turbine)
+    testImplementation(libs.fixture)
 
     androidTestImplementation(libs.androidx.espresso.core) {
         exclude(group = "com.android.support", module = "support-annotations")

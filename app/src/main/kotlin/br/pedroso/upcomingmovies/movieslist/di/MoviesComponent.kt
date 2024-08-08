@@ -6,7 +6,7 @@ import br.pedroso.upcomingmovies.movieslist.MoviesListActivity
 import dagger.Component
 
 @FragmentScope
-@Component(dependencies = [ApplicationComponent::class], modules = [MoviesPresenterModule::class])
+@Component(dependencies = [ApplicationComponent::class])
 interface MoviesComponent {
     fun inject(activity: MoviesListActivity)
 }

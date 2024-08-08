@@ -14,10 +14,8 @@ class MoviesRepositoryImpl @Inject constructor(
 
     private val retrofitMovieEntityToMovieMapper = RetrofitMovieEntityToMovieMapper()
 
-    override fun listUpcomingMovies(): Single<List<Movie>> {
-        return theMovieDbService.listUpcomingMovies()
-            .map { response -> response.results.map(retrofitMovieEntityToMovieMapper) }
-            .subscribeOn(Schedulers.io())
+    override suspend fun listUpcomingMovies(): List<Movie> {
+        return theMovieDbService.listUpcomingMovies().results.map(retrofitMovieEntityToMovieMapper)
     }
 
     override fun getMovieDetails(movieId: Int?): Single<Movie> {

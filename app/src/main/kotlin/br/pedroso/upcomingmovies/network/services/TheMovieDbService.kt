@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface TheMovieDbService {
     @GET("movie/upcoming")
-    fun listUpcomingMovies(): Single<RetrofitResponseMoviesEntity>
+    suspend fun listUpcomingMovies(): RetrofitResponseMoviesEntity
 
     @GET("movie/{movieId}")
     fun getMovieDetails(@Path("movieId") movieId: Int?): Single<RetrofitMovieEntity>
