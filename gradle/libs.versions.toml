@@ -18,8 +18,6 @@ palette = "1.0.0"
 picasso = "2.5.2"
 recyclerView = "1.3.2"
 retrofit = "2.9.0"
-rxAndroid = "3.0.0"
-rxJava = "3.1.1"
 truth = "1.4.4"
 turbine = "1.1.0"
 [plugins]
@@ -47,10 +45,7 @@ coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-androi
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
-retrofit2-adapterRxJava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit" }
 retrofit2-converterGson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-rxJava3-rxAndroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxAndroid" }
-rxJava3-rxJava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxJava" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }

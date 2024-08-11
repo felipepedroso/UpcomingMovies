@@ -10,7 +10,6 @@ import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -52,7 +51,6 @@ class NetworkModule(private val apiKey: String) {
     fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .baseUrl(TheMovieDbService.BASE_URL)
             .client(httpClient)
             .build()

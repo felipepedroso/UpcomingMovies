@@ -81,11 +81,6 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.converterGson)
-    implementation(libs.retrofit2.adapterRxJava3)
-
-    // RxJava
-    implementation(libs.rxJava3.rxAndroid)
-    implementation(libs.rxJava3.rxJava)
 
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
