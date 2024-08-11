@@ -1,50 +1,92 @@
 package br.pedroso.upcomingmovies.moviedetails
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.palette.graphics.Palette
 import br.pedroso.upcomingmovies.MoviesApplication
 import br.pedroso.upcomingmovies.R
 import br.pedroso.upcomingmovies.databinding.ActivityMovieDetailsBinding
 import br.pedroso.upcomingmovies.domain.Movie
+import br.pedroso.upcomingmovies.domain.MovieDetails
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnNavigateBack
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnSimilarMovie
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateBack
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateToMovieDetails
 import br.pedroso.upcomingmovies.moviedetails.adapter.SimilarMoviesAdapter
 import br.pedroso.upcomingmovies.moviedetails.di.DaggerMovieDetailsComponent
-import br.pedroso.upcomingmovies.moviedetails.di.MovieDetailsPresenterModule
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieDetailsActivity : AppCompatActivity(), MovieDetailsView {
-    @JvmField
+class MovieDetailsActivity : AppCompatActivity() {
     @Inject
-    var presenter: MovieDetailsPresenter? = null
+    lateinit var viewModelFactory: MovieDetailsViewModel.Factory
+
+    private val vieModel: MovieDetailsViewModel by viewModels { viewModelFactory }
 
     private var similarMoviesAdapter: SimilarMoviesAdapter? = null
 
-    private var binding: ActivityMovieDetailsBinding? = null
+    private val binding: ActivityMovieDetailsBinding by lazy {
+        ActivityMovieDetailsBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-        injectPresenter()
+        injectDependencies()
 
         setupView()
+
+        observeUiState()
+        observeViewModelEvents()
+    }
+
+    private fun observeViewModelEvents() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vieModel.viewModelEvent.collect { event ->
+                    when (event) {
+                        is NavigateBack -> finish()
+                        is NavigateToMovieDetails -> openMovieDetails(
+                            context = this@MovieDetailsActivity,
+                            movieId = event.movie.id
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeUiState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vieModel.uiState.collect { uiState ->
+                    when (uiState) {
+                        is MovieDetailsUiState.DisplayMovieDetails -> displayMovieMetadata(uiState.movieDetails)
+                        MovieDetailsUiState.Loading -> Unit // TODO: Implement loading state
+                        is MovieDetailsUiState.Error -> Unit // TODO: Implement error state
+                    }
+                }
+            }
+        }
     }
 
     private fun setupView() {
-        binding = ActivityMovieDetailsBinding.inflate(
-            layoutInflater
-        )
-
-        setContentView(binding!!.root)
+        setContentView(binding.root)
 
         setupToolbar()
 
@@ -53,54 +95,57 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailsView {
 
     private fun setupSimilarMoviesRecyclerView() {
         similarMoviesAdapter = SimilarMoviesAdapter { movie: Movie ->
-            presenter!!.clickedOnSimilarMovie(movie)
+            vieModel.onUiEvent(ClickedOnSimilarMovie(movie))
         }
-        binding!!.movieDetailsContent.recyclerViewSimilarMovies.adapter = similarMoviesAdapter
+        binding.movieDetailsContent.recyclerViewSimilarMovies.adapter = similarMoviesAdapter
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(binding!!.toolbarMovieDetails)
+        setSupportActionBar(binding.toolbarMovieDetails)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        binding!!.toolbarMovieDetails.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarMovieDetails.setNavigationOnClickListener {
+            vieModel.onUiEvent(ClickedOnNavigateBack)
+        }
     }
 
-    private fun injectPresenter() {
+    private fun injectDependencies() {
         val applicationComponent = (application as MoviesApplication).applicationComponent
 
         DaggerMovieDetailsComponent.builder()
             .applicationComponent(applicationComponent)
-            .movieDetailsPresenterModule(MovieDetailsPresenterModule(this))
             .build()
             .inject(this)
     }
 
-    override fun renderMovieDetails(movie: Movie) {
+    private fun displayMovieMetadata(movieDetails: MovieDetails) {
+        val (movie, similarMovies) = movieDetails
         val title = movie.title
-        binding!!.movieDetailsContent.textViewMovieTitle.text = title
-        binding!!.collapsingToolbarMovieDetails.title = title
+        binding.movieDetailsContent.textViewMovieTitle.text = title
+        binding.collapsingToolbarMovieDetails.title = title
 
         val resources = resources
 
-        binding!!.movieDetailsContent.textViewMovieReleaseDate.text = movie.releaseDate
+        binding.movieDetailsContent.textViewMovieReleaseDate.text = movie.releaseDate
 
         val numStars = resources.getInteger(R.integer.rating_bar_num_stars)
 
         val votingAverage = (numStars * movie.voteAverage!!).toFloat()
 
-        binding!!.movieDetailsContent.ratingBarMovieVoteAverage.rating = votingAverage
+        binding.movieDetailsContent.ratingBarMovieVoteAverage.rating = votingAverage
 
         val votingAverageText =
             String.format(resources.getString(R.string.movie_rating_format), votingAverage)
 
-        binding!!.movieDetailsContent.textViewMovieVoteAverage.text = votingAverageText
+        binding.movieDetailsContent.textViewMovieVoteAverage.text = votingAverageText
 
-        binding!!.movieDetailsContent.textViewMovieOverview.text = movie.overview
+        binding.movieDetailsContent.textViewMovieOverview.text = movie.overview
 
         Picasso.with(this).load(movie.posterPath)
-            .into(binding!!.imageViewMoviePoster, object : Callback {
+            .into(binding.imageViewMoviePoster, object : Callback {
                 override fun onSuccess() {
-                    val bitmap = (binding!!.imageViewMoviePoster.drawable as BitmapDrawable).bitmap
+                    val bitmap =
+                        (binding.imageViewMoviePoster.drawable as BitmapDrawable).bitmap
                     Palette.from(bitmap).generate { palette: Palette? ->
                         this@MovieDetailsActivity.applyPalette(palette)
                     }
@@ -110,6 +155,8 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailsView {
                     // TODO: handle error properly.
                 }
             })
+
+        similarMoviesAdapter!!.updateAdapterData(similarMovies)
     }
 
     private fun applyPalette(palette: Palette?) {
@@ -118,48 +165,22 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailsView {
 
         val darkMutedColor = palette!!.getDarkMutedColor(primaryDark)
 
-        binding!!.collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary))
-        binding!!.collapsingToolbarMovieDetails.setStatusBarScrimColor(darkMutedColor)
+        binding.collapsingToolbarMovieDetails.setContentScrimColor(palette.getMutedColor(primary))
+        binding.collapsingToolbarMovieDetails.setStatusBarScrimColor(darkMutedColor)
 
-        binding!!.imageViewMoviePoster.drawable.colorFilter =
+        binding.imageViewMoviePoster.drawable.colorFilter =
             PorterDuffColorFilter(palette.getLightMutedColor(primary), PorterDuff.Mode.MULTIPLY)
 
         window.statusBarColor = darkMutedColor
     }
 
-    override fun hideSimilarMoviesPanel() {
-//        cardViewSimilarMovies.setVisibility(View.GONE);
-    }
-
-    override fun displaySimilarMoviesPanel() {
-//        cardViewSimilarMovies.setVisibility(View.VISIBLE);
-    }
-
-    override fun startMovieDetailsActivity(id: Int) {
-        val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra(EXTRA_MOVIE_ID, id)
-        startActivity(intent)
-    }
-
-    override fun renderSimilarMovies(movies: List<Movie>) {
-        similarMoviesAdapter!!.updateAdapterData(movies)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val movieToBePresentedId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
-
-        presenter!!.loadMovieDetails(movieToBePresentedId)
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        presenter!!.pause()
-    }
-
     companion object {
         const val EXTRA_MOVIE_ID: String = "movie_id"
+
+        fun openMovieDetails(context: Context, movieId: Int) {
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(EXTRA_MOVIE_ID, movieId)
+            context.startActivity(intent)
+        }
     }
 }

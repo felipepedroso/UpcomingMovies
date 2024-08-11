@@ -7,9 +7,9 @@ import io.reactivex.rxjava3.core.Single
 class AlwaysSuccessfulUpcomingMoviesList(private val movies: List<Movie>) : MoviesRepository {
     override suspend fun listUpcomingMovies(): List<Movie> = movies
 
-    override fun getMovieDetails(movieId: Int?): Single<Movie> =
+    override suspend fun getMovieDetails(movieId: Int): Movie =
         error("This method shouldn't be used")
 
-    override fun listSimilarMovies(movieId: Int?): Single<List<Movie>> =
+    override suspend fun listSimilarMovies(movieId: Int): List<Movie> =
         error("This method shouldn't be used")
 }

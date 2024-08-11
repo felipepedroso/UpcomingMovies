@@ -1,6 +1,5 @@
 package br.pedroso.upcomingmovies.movieslist
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +47,10 @@ class MoviesListActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewModelEvent.collect { event ->
                     when (event) {
-                        is NavigateToMovieDetails -> startMovieDetailsActivity(event.movie)
+                        is NavigateToMovieDetails -> MovieDetailsActivity.openMovieDetails(
+                            context = this@MoviesListActivity,
+                            movieId = event.movie.id
+                        )
                     }
                 }
             }
@@ -92,11 +94,5 @@ class MoviesListActivity : AppCompatActivity() {
 
     private fun renderMoviesList(moviesList: List<Movie>) {
         moviesAdapter?.updateAdapterData(moviesList)
-    }
-
-    private fun startMovieDetailsActivity(movie: Movie) {
-        val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.id)
-        startActivity(intent)
     }
 }

@@ -8,8 +8,8 @@ import dagger.Component
 @FragmentScope
 @Component(
     dependencies = [ApplicationComponent::class],
-    modules = [MovieDetailsPresenterModule::class]
+    modules = [MovieDetailsModule::class]
 )
 interface MovieDetailsComponent {
-    fun inject(activity: MovieDetailsActivity?)
+    fun inject(activity: MovieDetailsActivity)
 }
