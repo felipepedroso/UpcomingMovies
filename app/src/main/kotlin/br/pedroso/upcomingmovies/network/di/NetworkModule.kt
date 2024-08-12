@@ -1,20 +1,24 @@
 package br.pedroso.upcomingmovies.network.di
 
 import android.app.Application
+import br.pedroso.upcomingmovies.BuildConfig
 import br.pedroso.upcomingmovies.network.interceptors.ApiKeyInterceptor
 import br.pedroso.upcomingmovies.network.services.TheMovieDbService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class NetworkModule(private val apiKey: String) {
+class NetworkModule {
     @Provides
     @Singleton
     fun provideHttpCache(application: Application): Cache {
@@ -25,7 +29,7 @@ class NetworkModule(private val apiKey: String) {
     @Provides
     @Singleton
     fun provideApiKeyInterceptor(): ApiKeyInterceptor {
-        return ApiKeyInterceptor(apiKey)
+        return ApiKeyInterceptor(BuildConfig.MOVIES_DB_API_KEY)
     }
 
     @Provides

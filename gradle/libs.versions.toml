@@ -4,10 +4,10 @@ androidGradlePlugin = "8.5.1"
 appCompat = "1.7.0"
 cardView = "1.0.0"
 coreKtx = "1.13.1"
-dagger = "2.52"
 desugarJdkLibs = "2.0.4"
 espressoCore = "3.6.1"
 fixture = "1.2.0"
+hilt = "2.51.1"
 junit = "4.12"
 kotlin = "2.0.0"
 kotlinStdlib = "2.0.0"
@@ -22,6 +22,7 @@ truth = "1.4.4"
 turbine = "1.1.0"
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 [libraries]
@@ -35,10 +36,10 @@ androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-kt
 androidx-lifecycle-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycle" }
 androidx-palette = { module = "androidx.palette:palette", version.ref = "palette" }
 androidx-recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerView" }
-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 fixture = { module = "com.appmattus.fixture:fixture", version.ref = "fixture" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

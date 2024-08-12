@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import br.pedroso.upcomingmovies.MoviesApplication
 import br.pedroso.upcomingmovies.databinding.ActivityMoviesBinding
-import br.pedroso.upcomingmovies.di.ApplicationComponent
 import br.pedroso.upcomingmovies.domain.Movie
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsActivity
 import br.pedroso.upcomingmovies.movieslist.MoviesListUiEvent.ClickedOnMovie
@@ -18,10 +16,10 @@ import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.Error
 import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.Loading
 import br.pedroso.upcomingmovies.movieslist.MoviesListViewModelEvent.NavigateToMovieDetails
 import br.pedroso.upcomingmovies.movieslist.adapter.MoviesAdapter
-import br.pedroso.upcomingmovies.movieslist.di.DaggerMoviesComponent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MoviesListActivity : AppCompatActivity() {
     private var moviesAdapter: MoviesAdapter? = null
 
@@ -29,14 +27,10 @@ class MoviesListActivity : AppCompatActivity() {
         ActivityMoviesBinding.inflate(layoutInflater)
     }
 
-    @Inject
-    lateinit var viewModelFactory: MoviesListViewModel.Factory
-
-    private val viewModel: MoviesListViewModel by viewModels { viewModelFactory }
+    private val viewModel: MoviesListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injectDependencies()
         setupView()
         observeUiState()
         observeViewModelEvents()
@@ -80,16 +74,6 @@ class MoviesListActivity : AppCompatActivity() {
     private fun setupRecyclerViewMovies() {
         moviesAdapter = MoviesAdapter { movie: Movie -> viewModel.onUiEvent(ClickedOnMovie(movie)) }
         binding.recyclerViewMovies.adapter = moviesAdapter
-    }
-
-    private fun injectDependencies() {
-        val applicationComponent: ApplicationComponent =
-            (application as MoviesApplication).applicationComponent
-
-        DaggerMoviesComponent.builder()
-            .applicationComponent(applicationComponent)
-            .build()
-            .inject(this)
     }
 
     private fun renderMoviesList(moviesList: List<Movie>) {

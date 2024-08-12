@@ -14,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.palette.graphics.Palette
-import br.pedroso.upcomingmovies.MoviesApplication
 import br.pedroso.upcomingmovies.R
 import br.pedroso.upcomingmovies.databinding.ActivityMovieDetailsBinding
 import br.pedroso.upcomingmovies.domain.Movie
@@ -24,17 +23,14 @@ import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnSimil
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateToMovieDetails
 import br.pedroso.upcomingmovies.moviedetails.adapter.SimilarMoviesAdapter
-import br.pedroso.upcomingmovies.moviedetails.di.DaggerMovieDetailsComponent
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieDetailsActivity : AppCompatActivity() {
-    @Inject
-    lateinit var viewModelFactory: MovieDetailsViewModel.Factory
-
-    private val vieModel: MovieDetailsViewModel by viewModels { viewModelFactory }
+    private val vieModel: MovieDetailsViewModel by viewModels()
 
     private var similarMoviesAdapter: SimilarMoviesAdapter? = null
 
@@ -46,8 +42,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-        injectDependencies()
 
         setupView()
 
@@ -107,15 +101,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.toolbarMovieDetails.setNavigationOnClickListener {
             vieModel.onUiEvent(ClickedOnNavigateBack)
         }
-    }
-
-    private fun injectDependencies() {
-        val applicationComponent = (application as MoviesApplication).applicationComponent
-
-        DaggerMovieDetailsComponent.builder()
-            .applicationComponent(applicationComponent)
-            .build()
-            .inject(this)
     }
 
     private fun displayMovieMetadata(movieDetails: MovieDetails) {

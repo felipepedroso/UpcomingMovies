@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidGradlePlugin)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
     id("kotlin-kapt")
 }
 
@@ -49,6 +50,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
@@ -74,9 +79,9 @@ dependencies {
     // Picasso
     implementation(libs.picasso)
 
-    // Dagger2
-    kapt(libs.dagger.compiler)
-    implementation(libs.dagger)
+    // Hilt
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.android)
 
     // Retrofit
     implementation(libs.retrofit2.retrofit)

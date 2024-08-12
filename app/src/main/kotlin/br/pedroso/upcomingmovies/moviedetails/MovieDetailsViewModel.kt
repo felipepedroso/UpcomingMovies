@@ -2,10 +2,7 @@ package br.pedroso.upcomingmovies.moviedetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import br.pedroso.upcomingmovies.domain.GetMovieDetails
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnNavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnSimilarMovie
@@ -14,6 +11,7 @@ import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiState.Error
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiState.Loading
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateToMovieDetails
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -22,7 +20,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MovieDetailsViewModel(
+@HiltViewModel
+class MovieDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getMovieDetails: GetMovieDetails,
 ) : ViewModel() {
@@ -72,18 +71,4 @@ class MovieDetailsViewModel(
     class InvalidMovieId : Throwable("Please use a valid movie id to fetch its details.")
     class FailedToFetchMovieDetails(cause: Throwable) :
         Throwable("Failed to fetch the movie details.", cause)
-
-    @Suppress("UNCHECKED_CAST")
-    class Factory @Inject constructor(
-        private val getMovieDetails: GetMovieDetails,
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-
-
-            return MovieDetailsViewModel(
-                savedStateHandle = extras.createSavedStateHandle(),
-                getMovieDetails = getMovieDetails,
-            ) as T
-        }
-    }
 }
