@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidGradlePlugin)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
     id("kotlin-kapt")
 }
 
@@ -38,6 +39,7 @@ android {
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        compose = true
     }
 
     compileOptions {
@@ -48,6 +50,13 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+}
+
+composeCompiler {
+    enableStrongSkippingMode = true
+
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
 }
 
 kapt {
@@ -67,6 +76,24 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
 
     implementation(libs.androidx.lifecycle.savedstate)
+
+    // Compose
+    val composeBom = platform(libs.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.compose.material3)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.ui)
+
+    implementation(libs.compose.uiToolingPreview)
+    debugImplementation (libs.compose.uiTooling)
+
+    androidTestImplementation (libs.compose.uiTestJUnit4)
+    debugImplementation (libs.compose.uiTestManifest)
+
+    implementation(libs.compose.activity)
+    implementation(libs.compose.viewModel)
 
     // Coroutines
     implementation(libs.coroutines.android)
