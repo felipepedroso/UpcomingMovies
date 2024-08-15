@@ -70,6 +70,7 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines.android)
+    implementation(libs.coroutines.core)
 
     // Design library
     implementation(libs.material)

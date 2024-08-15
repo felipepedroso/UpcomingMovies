@@ -3,7 +3,7 @@ package br.pedroso.upcomingmovies.moviedetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.pedroso.upcomingmovies.domain.GetMovieDetails
+import br.pedroso.upcomingmovies.domain.MoviesRepository
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnNavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnSimilarMovie
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiState.DisplayMovieDetails
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val getMovieDetails: GetMovieDetails,
+    private val moviesRepository: MoviesRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<MovieDetailsUiState>(Loading)
     val uiState = _uiState.asStateFlow()
@@ -41,9 +41,7 @@ class MovieDetailsViewModel @Inject constructor(
                 _uiState.value = Error(InvalidMovieId())
                 return@launch
             } else {
-
-
-                runCatching { getMovieDetails(movieId) }
+                runCatching { moviesRepository.getMovieDetails(movieId) }
                     .onSuccess { movieDetails ->
                         _uiState.value = DisplayMovieDetails(movieDetails)
                     }

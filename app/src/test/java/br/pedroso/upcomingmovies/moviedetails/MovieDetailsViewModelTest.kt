@@ -14,8 +14,8 @@ import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModel.FailedToFetc
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModel.InvalidMovieId
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.NavigateToMovieDetails
-import br.pedroso.upcomingmovies.moviedetails.fakes.AlwaysFailingMovieDetails
-import br.pedroso.upcomingmovies.moviedetails.fakes.AlwaysSuccessfulMovieDetails
+import br.pedroso.upcomingmovies.moviedetails.fakes.AlwaysFailingGetMovieDetails
+import br.pedroso.upcomingmovies.moviedetails.fakes.AlwaysSuccessfulGetMovieDetails
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
@@ -34,7 +34,7 @@ class MovieDetailsViewModelTest {
         runTest {
             val viewModel = MovieDetailsViewModel(
                 savedStateHandle = SavedStateHandle(),
-                getMovieDetails = AlwaysSuccessfulMovieDetails(fixture())
+                moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture())
             )
 
             viewModel.uiState.test {
@@ -54,7 +54,7 @@ class MovieDetailsViewModelTest {
                 savedStateHandle = SavedStateHandle().apply {
                     this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
                 },
-                getMovieDetails = AlwaysFailingMovieDetails()
+                moviesRepository = AlwaysFailingGetMovieDetails()
             )
 
             viewModel.uiState.test {
@@ -75,7 +75,7 @@ class MovieDetailsViewModelTest {
                 savedStateHandle = SavedStateHandle().apply {
                     this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
                 },
-                getMovieDetails = AlwaysSuccessfulMovieDetails(movieDetails)
+                moviesRepository = AlwaysSuccessfulGetMovieDetails(movieDetails)
             )
 
             viewModel.uiState.test {
@@ -93,7 +93,7 @@ class MovieDetailsViewModelTest {
             savedStateHandle = SavedStateHandle().apply {
                 this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
             },
-            getMovieDetails = AlwaysSuccessfulMovieDetails(fixture())
+            moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture())
         )
 
         viewModel.onUiEvent(ClickedOnSimilarMovie(similarMovie))
@@ -109,7 +109,7 @@ class MovieDetailsViewModelTest {
             savedStateHandle = SavedStateHandle().apply {
                 this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
             },
-            getMovieDetails = AlwaysSuccessfulMovieDetails(fixture())
+            moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture())
         )
 
         viewModel.onUiEvent(ClickedOnNavigateBack)
