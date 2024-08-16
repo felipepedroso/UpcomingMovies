@@ -8,7 +8,7 @@ class ApiKeyInterceptor(private val apiKey: String) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val originalUrl = originalRequest.url()
+        val originalUrl = originalRequest.url
 
         val urlWithApiKey = originalUrl.newBuilder()
             .addQueryParameter(API_KEY_QUERY_PARAMETER, apiKey)

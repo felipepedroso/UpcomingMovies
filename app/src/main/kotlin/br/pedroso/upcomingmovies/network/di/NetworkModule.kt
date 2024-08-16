@@ -34,12 +34,12 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(cache: Cache?, apiKeyInterceptor: ApiKeyInterceptor?): OkHttpClient {
+    fun provideOkHttpClient(cache: Cache?, apiKeyInterceptor: ApiKeyInterceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
 
         builder.cache(cache)
 
-        builder.interceptors().add(apiKeyInterceptor)
+        builder.addInterceptor(apiKeyInterceptor)
 
         return builder.build()
     }

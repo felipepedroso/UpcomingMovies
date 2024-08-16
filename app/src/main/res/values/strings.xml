@@ -6,5 +6,7 @@
     <string name="textView_movie_overview_label">Overview</string>
     <string name="textView_movie_title_label">Title</string>
     <string name="textView_similar_movies_label">Similar Movies</string>
-
+    <string name="loading_state_text">Loading…</string>
+    <string name="failed_to_load_movies">Failed to load movies</string>
+    <string name="movies_not_available">There are no movies available</string>
 </resources>
