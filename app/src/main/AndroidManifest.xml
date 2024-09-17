@@ -13,14 +13,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".movieslist.MoviesListActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".moviedetails.MovieDetailsActivity" />
+        <activity
+            android:name=".moviedetails.MovieDetailsActivity"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
