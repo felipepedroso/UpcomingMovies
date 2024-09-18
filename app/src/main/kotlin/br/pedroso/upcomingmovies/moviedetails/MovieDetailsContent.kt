@@ -29,7 +29,6 @@ import br.pedroso.upcomingmovies.designsystem.components.RatingBar
 import br.pedroso.upcomingmovies.domain.Movie
 import br.pedroso.upcomingmovies.domain.MovieDetails
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailsContent(
     movieDetails: MovieDetails,

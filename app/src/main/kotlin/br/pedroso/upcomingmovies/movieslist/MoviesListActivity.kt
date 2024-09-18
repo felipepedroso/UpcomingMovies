@@ -2,9 +2,11 @@ package br.pedroso.upcomingmovies.movieslist
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.ui.Modifier
 import br.pedroso.upcomingmovies.designsystem.theme.UpcomingMoviesTheme
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsActivity
@@ -16,6 +18,8 @@ class MoviesListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enableEdgeToEdge()
 
         setContent {
             UpcomingMoviesTheme {

@@ -1,12 +1,22 @@
 package br.pedroso.upcomingmovies.moviedetails
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -17,6 +27,7 @@ import br.pedroso.upcomingmovies.designsystem.components.ErrorState
 import br.pedroso.upcomingmovies.designsystem.components.LoadingState
 import br.pedroso.upcomingmovies.domain.Movie
 import br.pedroso.upcomingmovies.domain.MovieDetails
+import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnNavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnSimilarMovie
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiState.DisplayMovieDetails
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiState.Error
@@ -50,32 +61,51 @@ fun MovieDetailsScreen(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailsScreen(
     uiState: MovieDetailsUiState,
     modifier: Modifier = Modifier,
     onUiEvent: (MovieDetailsUiEvent) -> Unit = {},
 ) {
-    AnimatedContent(
-        uiState,
+    Scaffold(
         modifier = modifier,
-        label = "movie-details-screen"
-    ) { state ->
-        when (state) {
-            is DisplayMovieDetails -> MovieDetailsContent(
-                state.movieDetails,
-                modifier = Modifier.fillMaxSize(),
-                clickedOnSimilarMovie = { movie ->
-                    onUiEvent(ClickedOnSimilarMovie(movie))
-                }
-            )
+        topBar = {
+            if (uiState is DisplayMovieDetails) {
+                TopAppBar(
+                    title = {},
+                    navigationIcon = {
+                        IconButton(onClick = { onUiEvent(ClickedOnNavigateBack) }) {
+                            Image(
+                                painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = null
+                            )
+                        }
+                    },
+                )
 
-            is Error -> ErrorState(
-                modifier = Modifier.fillMaxSize(),
-                text = stringResource(R.string.failed_to_load_movie_details),
-            )
+            }
+        }
+    ) {
+        Box(
+            modifier = Modifier.padding(top = it.calculateTopPadding()),
+        ) {
+            when (uiState) {
+                is DisplayMovieDetails -> MovieDetailsContent(
+                    uiState.movieDetails,
+                    modifier = Modifier.fillMaxSize(),
+                    clickedOnSimilarMovie = { movie ->
+                        onUiEvent(ClickedOnSimilarMovie(movie))
+                    }
+                )
 
-            Loading -> LoadingState(modifier = Modifier.fillMaxSize())
+                is Error -> ErrorState(
+                    modifier = Modifier.fillMaxSize(),
+                    text = stringResource(R.string.failed_to_load_movie_details),
+                )
+
+                Loading -> LoadingState(modifier = Modifier.fillMaxSize())
+            }
         }
     }
 }

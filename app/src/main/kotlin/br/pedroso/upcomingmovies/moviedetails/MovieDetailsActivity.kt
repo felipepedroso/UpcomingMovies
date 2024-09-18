@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieDetailsActivity : AppCompatActivity() {
-    private val vieModel: MovieDetailsViewModel by viewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +25,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         setContent {
             UpcomingMoviesTheme {
                 MovieDetailsScreen(
-                    viewModel = vieModel,
-                    modifier = Modifier
-                        .safeContentPadding()
-                        .fillMaxSize(),
+                    modifier = Modifier.safeContentPadding(),
+                    viewModel = viewModel,
                     navigateToMovieDetails = { openMovieDetails(this, it) },
                     navigateBack = { finish() }
                 )

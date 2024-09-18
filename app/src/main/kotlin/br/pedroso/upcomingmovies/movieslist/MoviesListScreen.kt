@@ -59,6 +59,7 @@ fun MoviesListScreen(
     title: String = stringResource(id = R.string.app_name),
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text(text = title) },
@@ -69,7 +70,7 @@ fun MoviesListScreen(
             )
         }
     ) {
-        Box(modifier = modifier.padding(it)) {
+        Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
             when (uiState) {
                 is DisplayMovies -> MoviesList(
                     modifier = Modifier.fillMaxSize(),
