@@ -3,6 +3,7 @@ package br.pedroso.upcomingmovies.moviedetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import br.pedroso.upcomingmovies.domain.MoviesRepository
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnNavigateBack
 import br.pedroso.upcomingmovies.moviedetails.MovieDetailsUiEvent.ClickedOnSimilarMovie
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import br.pedroso.upcomingmovies.MovieDetails as MovieDetailsDestination
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
@@ -35,7 +37,7 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { Loading }
 
-            val movieId = savedStateHandle.get<Int>(MovieDetailsActivity.EXTRA_MOVIE_ID)
+            val movieId = savedStateHandle.toRoute<MovieDetailsDestination>().movieId
 
             if (movieId == null) {
                 _uiState.value = Error(InvalidMovieId())

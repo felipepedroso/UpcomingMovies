@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
     id("kotlin-kapt")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -86,13 +87,15 @@ dependencies {
     implementation(libs.compose.ui)
 
     implementation(libs.compose.uiToolingPreview)
-    debugImplementation (libs.compose.uiTooling)
+    debugImplementation(libs.compose.uiTooling)
 
-    androidTestImplementation (libs.compose.uiTestJUnit4)
-    debugImplementation (libs.compose.uiTestManifest)
+    androidTestImplementation(libs.compose.uiTestJUnit4)
+    debugImplementation(libs.compose.uiTestManifest)
 
     implementation(libs.compose.activity)
     implementation(libs.compose.viewModel)
+
+    implementation(libs.navigation.compose)
 
     // Coil
     implementation(libs.coil.core)
@@ -113,6 +116,11 @@ dependencies {
     // Hilt
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigationCompose)
+
+    // Kotlin Serialization
+    implementation(libs.kotlin.serializationJson)
+
 
     // Retrofit
     implementation(libs.retrofit2.retrofit)

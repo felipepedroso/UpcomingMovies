@@ -1,15 +1,12 @@
 package br.pedroso.upcomingmovies.moviedetails
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import androidx.hilt.navigation.compose.hiltViewModel
 import br.pedroso.upcomingmovies.R
 import br.pedroso.upcomingmovies.designsystem.components.ErrorState
 import br.pedroso.upcomingmovies.designsystem.components.LoadingState
@@ -37,8 +35,8 @@ import br.pedroso.upcomingmovies.moviedetails.MovieDetailsViewModelEvent.Navigat
 
 @Composable
 fun MovieDetailsScreen(
-    viewModel: MovieDetailsViewModel,
     modifier: Modifier = Modifier,
+    viewModel: MovieDetailsViewModel = hiltViewModel(),
     navigateToMovieDetails: (movieId: Int) -> Unit = {},
     navigateBack: () -> Unit = {},
 ) {
@@ -71,20 +69,17 @@ fun MovieDetailsScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            if (uiState is DisplayMovieDetails) {
-                TopAppBar(
-                    title = {},
-                    navigationIcon = {
-                        IconButton(onClick = { onUiEvent(ClickedOnNavigateBack) }) {
-                            Image(
-                                painterResource(R.drawable.ic_arrow_back),
-                                contentDescription = null
-                            )
-                        }
-                    },
-                )
-
-            }
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = { onUiEvent(ClickedOnNavigateBack) }) {
+                        Image(
+                            painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = null
+                        )
+                    }
+                },
+            )
         }
     ) {
         Box(

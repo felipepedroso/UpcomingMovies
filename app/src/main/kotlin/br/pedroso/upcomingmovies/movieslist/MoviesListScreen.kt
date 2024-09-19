@@ -16,7 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import br.pedroso.upcomingmovies.R
 import br.pedroso.upcomingmovies.designsystem.components.ErrorState
 import br.pedroso.upcomingmovies.designsystem.components.LoadingState
@@ -29,8 +29,8 @@ import br.pedroso.upcomingmovies.movieslist.MoviesListViewModelEvent.NavigateToM
 
 @Composable
 fun MoviesListScreen(
-    viewModel: MoviesListViewModel,
     modifier: Modifier = Modifier,
+    viewModel: MoviesListViewModel = hiltViewModel(),
     navigateToMovieDetails: (movieId: Int) -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsState()
