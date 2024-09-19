@@ -72,5 +72,6 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit2-converterGson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit2-converterKotlinxSerialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }

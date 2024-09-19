@@ -1,5 +1,9 @@
 package br.pedroso.upcomingmovies.network.entities
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RetrofitResponseMoviesEntity(
-    val results: List<RetrofitMovieEntity>
+    @SerialName("results") val results: List<RetrofitMovieEntity>
 )
