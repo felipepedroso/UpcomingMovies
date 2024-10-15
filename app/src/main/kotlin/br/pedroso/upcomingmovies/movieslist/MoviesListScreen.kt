@@ -1,14 +1,7 @@
 package br.pedroso.upcomingmovies.movieslist
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,46 +43,31 @@ fun MoviesListScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoviesListScreen(
     uiState: MoviesListUiState,
     onUiEvent: (MoviesListUiEvent) -> Unit,
     modifier: Modifier = Modifier,
-    title: String = stringResource(id = R.string.app_name),
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = { Text(text = title) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
+    AnimatedContent(targetState = uiState, modifier = modifier, label = "movies-list") { state ->
+        when (state) {
+            is DisplayMovies -> MoviesList(
+                modifier = Modifier.fillMaxSize(),
+                movies = state.movies,
+                clickedOnMovie = { movie -> onUiEvent(ClickedOnMovie(movie)) }
             )
-        }
-    ) {
-        Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
-            when (uiState) {
-                is DisplayMovies -> MoviesList(
-                    modifier = Modifier.fillMaxSize(),
-                    movies = uiState.movies,
-                    clickedOnMovie = { movie -> onUiEvent(ClickedOnMovie(movie)) }
-                )
 
-                Empty -> ErrorState(
-                    modifier = Modifier.fillMaxSize(),
-                    text = stringResource(id = R.string.movies_not_available),
-                )
+            Empty -> ErrorState(
+                modifier = Modifier.fillMaxSize(),
+                text = stringResource(id = R.string.movies_not_available),
+            )
 
-                is Error -> ErrorState(
-                    modifier = Modifier.fillMaxSize(),
-                    text = stringResource(id = R.string.failed_to_load_movies),
-                )
+            is Error -> ErrorState(
+                modifier = Modifier.fillMaxSize(),
+                text = stringResource(id = R.string.failed_to_load_movies),
+            )
 
-                Loading -> LoadingState(modifier = Modifier.fillMaxSize())
-            }
+            Loading -> LoadingState(modifier = Modifier.fillMaxSize())
         }
     }
 }

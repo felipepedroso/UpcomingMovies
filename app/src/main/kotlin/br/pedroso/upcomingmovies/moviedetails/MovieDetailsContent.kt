@@ -8,16 +8,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -26,9 +32,11 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import br.pedroso.upcomingmovies.R
 import br.pedroso.upcomingmovies.designsystem.components.RatingBar
+import br.pedroso.upcomingmovies.designsystem.theme.UpcomingMoviesTheme
 import br.pedroso.upcomingmovies.domain.Movie
 import br.pedroso.upcomingmovies.domain.MovieDetails
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailsContent(
     movieDetails: MovieDetails,
@@ -38,7 +46,9 @@ fun MovieDetailsContent(
 ) {
     val movie = movieDetails.movie
     Column(
-        modifier = modifier.verticalScroll(scrollState),
+        modifier = modifier
+            .verticalScroll(scrollState)
+            .padding(16.dp),
         verticalArrangement = spacedBy(8.dp),
     ) {
         MovieDetailsHeader(movie, Modifier.fillMaxWidth())
@@ -65,18 +75,20 @@ fun MovieDetailsContent(
             )
         }
 
-        MovieDetailSection(
-            title = stringResource(id = R.string.textView_similar_movies_label),
-        ) {
-            LazyRow(horizontalArrangement = spacedBy(4.dp)) {
-                items(movieDetails.similarMovies) { movie ->
-                    MovieDetailPoster(
-                        modifier = Modifier
-                            .height(180.dp)
-                            .semantics { contentDescription = movie.title }
-                            .clickable { clickedOnSimilarMovie(movie) },
-                        posterUrl = movie.posterPath.orEmpty()
-                    )
+        if(movieDetails.similarMovies.isNotEmpty()) {
+            MovieDetailSection(
+                title = stringResource(id = R.string.textView_similar_movies_label),
+            ) {
+                LazyRow(horizontalArrangement = spacedBy(8.dp)) {
+                    items(movieDetails.similarMovies) { movie ->
+                        MovieDetailPoster(
+                            modifier = Modifier
+                                .height(180.dp)
+                                .semantics { contentDescription = movie.title }
+                                .clickable { clickedOnSimilarMovie(movie) },
+                            posterUrl = movie.posterPath.orEmpty()
+                        )
+                    }
                 }
             }
         }
@@ -136,26 +148,31 @@ private fun MovieDetailSection(
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MovieDetailsContentPreview() {
-    MovieDetailsContent(
-        movieDetails = MovieDetails(
-            movie = Movie(
-                id = 1,
-                title = "Movie 1",
-                releaseDate = "2024-01-01",
-                voteAverage = 3.5,
-                overview = LoremIpsum(40).values.joinToString(" "),
-            ),
-            similarMovies = (1..10).map { id ->
-                Movie(
-                    id = id,
-                    title = "Movie ${id + 1}",
-                    releaseDate = "2024-01-01",
-                    overview = LoremIpsum(40).values.joinToString(" "),
-                )
-            }
-        ),
-        modifier = Modifier.fillMaxSize(),
-    )
+    UpcomingMoviesTheme {
+        Surface {
+            MovieDetailsContent(
+                movieDetails = MovieDetails(
+                    movie = Movie(
+                        id = 1,
+                        title = "Movie 1",
+                        releaseDate = "2024-01-01",
+                        voteAverage = 3.5,
+                        overview = LoremIpsum(40).values.joinToString(" "),
+                    ),
+                    similarMovies = (1..10).map { id ->
+                        Movie(
+                            id = id,
+                            title = "Movie ${id + 1}",
+                            releaseDate = "2024-01-01",
+                            overview = LoremIpsum(40).values.joinToString(" "),
+                        )
+                    }
+                ),
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+    }
 }
