@@ -30,6 +30,13 @@ subprojects {
             indentWithSpaces()
             endWithNewline()
         }
+
+        format("xml") {
+            target("**/*.xml")
+            indentWithSpaces()
+            trimTrailingWhitespace()
+            endWithNewline()
+        }
     }
 }
 
