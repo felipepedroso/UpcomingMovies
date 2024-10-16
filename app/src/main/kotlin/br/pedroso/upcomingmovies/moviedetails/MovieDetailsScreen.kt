@@ -67,7 +67,7 @@ fun MovieDetailsScreen(
                 modifier = Modifier.fillMaxSize(),
                 clickedOnSimilarMovie = { movie ->
                     onUiEvent(ClickedOnSimilarMovie(movie))
-                }
+                },
             )
 
             is Error -> ErrorState(
@@ -83,9 +83,8 @@ fun MovieDetailsScreen(
 @Preview(showBackground = true)
 @Composable
 private fun MovieDetailsScreenPreview(
-    @PreviewParameter(MovieDetailsUiStateProvider::class) uiState: MovieDetailsUiState
+    @PreviewParameter(MovieDetailsUiStateProvider::class) uiState: MovieDetailsUiState,
 ) {
-
     MovieDetailsScreen(uiState = uiState)
 }
 
@@ -107,8 +106,8 @@ private class MovieDetailsUiStateProvider : PreviewParameterProvider<MovieDetail
                             id = id,
                             title = "Movie ${id + 1}",
                         )
-                    }
-                )
-            )
+                    },
+                ),
+            ),
         )
 }

@@ -22,7 +22,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -120,7 +119,6 @@ dependencies {
 
     // Kotlin Serialization
     implementation(libs.kotlin.serializationJson)
-
 
     // Retrofit
     implementation(libs.retrofit2.retrofit)

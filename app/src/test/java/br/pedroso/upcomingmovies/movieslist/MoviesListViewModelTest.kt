@@ -28,8 +28,8 @@ class MoviesListViewModelTest {
                 assertThat(awaitItem()).isEqualTo(MoviesListUiState.Loading)
                 assertThat(awaitItem()).isEqualTo(
                     MoviesListUiState.Error(
-                        AlwaysFailingUpcomingMoviesList.defaultException
-                    )
+                        AlwaysFailingUpcomingMoviesList.defaultException,
+                    ),
                 )
             }
         }

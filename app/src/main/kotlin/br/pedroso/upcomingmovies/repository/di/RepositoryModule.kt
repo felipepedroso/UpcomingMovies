@@ -17,7 +17,7 @@ class RepositoryModule {
     @Provides
     fun provideMoviesRepository(
         theMovieDbService: TheMovieDbService,
-        retrofitMovieEntityToMovieMapper: RetrofitMovieEntityToMovieMapper
+        retrofitMovieEntityToMovieMapper: RetrofitMovieEntityToMovieMapper,
     ): MoviesRepository {
         return MoviesRepositoryImpl(theMovieDbService, retrofitMovieEntityToMovieMapper)
     }

@@ -14,16 +14,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -42,7 +38,7 @@ fun MovieDetailsContent(
     movieDetails: MovieDetails,
     modifier: Modifier = Modifier,
     clickedOnSimilarMovie: (movie: Movie) -> Unit = {},
-    scrollState: ScrollState = rememberScrollState()
+    scrollState: ScrollState = rememberScrollState(),
 ) {
     val movie = movieDetails.movie
     Column(
@@ -61,7 +57,7 @@ fun MovieDetailsContent(
             ) {
                 Text(
                     text = releaseDate,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
@@ -71,11 +67,11 @@ fun MovieDetailsContent(
         ) {
             Text(
                 text = movieDetails.movie.overview.orEmpty(),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
 
-        if(movieDetails.similarMovies.isNotEmpty()) {
+        if (movieDetails.similarMovies.isNotEmpty()) {
             MovieDetailSection(
                 title = stringResource(id = R.string.textView_similar_movies_label),
             ) {
@@ -86,7 +82,7 @@ fun MovieDetailsContent(
                                 .height(180.dp)
                                 .semantics { contentDescription = movie.title }
                                 .clickable { clickedOnSimilarMovie(movie) },
-                            posterUrl = movie.posterPath.orEmpty()
+                            posterUrl = movie.posterPath.orEmpty(),
                         )
                     }
                 }
@@ -112,20 +108,20 @@ private fun MovieDetailsHeader(
 
         Text(
             text = movie.title,
-            style = MaterialTheme.typography.headlineLarge
+            style = MaterialTheme.typography.headlineLarge,
         )
 
         val voteAverage = (movie.voteAverage?.toFloat() ?: 0f) * 5f
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = spacedBy(4.dp)
+            horizontalArrangement = spacedBy(4.dp),
         ) {
             RatingBar(rating = voteAverage)
 
             Text(
                 text = stringResource(id = R.string.movie_rating_format, voteAverage),
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
         }
     }
@@ -169,7 +165,7 @@ private fun MovieDetailsContentPreview() {
                             releaseDate = "2024-01-01",
                             overview = LoremIpsum(40).values.joinToString(" "),
                         )
-                    }
+                    },
                 ),
                 modifier = Modifier.fillMaxSize(),
             )

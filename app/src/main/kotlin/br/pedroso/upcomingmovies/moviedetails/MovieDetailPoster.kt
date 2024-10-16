@@ -18,7 +18,7 @@ import coil.compose.AsyncImage
 fun MovieDetailPoster(
     posterUrl: String,
     modifier: Modifier = Modifier,
-    clickedOnPoster: (() -> Unit)? = null
+    clickedOnPoster: (() -> Unit)? = null,
 ) {
     AsyncImage(
         modifier = modifier
@@ -31,9 +31,9 @@ fun MovieDetailPoster(
             Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.surfaceVariant,
-                    MaterialTheme.colorScheme.surface
-                )
-            )
+                    MaterialTheme.colorScheme.surface,
+                ),
+            ),
         ),
         model = posterUrl,
         contentDescription = null,
@@ -43,8 +43,7 @@ fun MovieDetailPoster(
 
 @Preview(showBackground = true)
 @Composable
-private fun MovieDetailPosterPreview(
-) {
+private fun MovieDetailPosterPreview() {
     UpcomingMoviesTheme {
         MovieDetailPoster(posterUrl = "https://path.to.poster")
     }

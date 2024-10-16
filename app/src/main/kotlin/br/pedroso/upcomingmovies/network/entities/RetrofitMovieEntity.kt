@@ -10,5 +10,5 @@ class RetrofitMovieEntity(
     @SerialName("title") val title: String,
     @SerialName("vote_average") var voteAverage: Double,
     @SerialName("release_date") var releaseDate: String,
-    @SerialName("overview") var overview: String
+    @SerialName("overview") var overview: String,
 )

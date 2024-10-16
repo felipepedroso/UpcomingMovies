@@ -29,7 +29,7 @@ fun RatingBar(
     maxRating: Int = 5,
     starColor: Color = MaterialTheme.colorScheme.primary,
     starBackgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
-    @DrawableRes ratingVectorResource: Int = R.drawable.ic_star
+    @DrawableRes ratingVectorResource: Int = R.drawable.ic_star,
 ) {
     val starVector = ImageVector.vectorResource(ratingVectorResource)
     val starVectorPainter = rememberVectorPainter(image = starVector)
@@ -46,7 +46,7 @@ fun RatingBar(
         modifier =
         modifier
             .size(totalWidth, height)
-            .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
+            .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen),
     ) {
         repeat(maxRating) {
             with(starVectorPainter) {
@@ -68,7 +68,6 @@ fun RatingBar(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun RatingBarPreview(@PreviewParameter(RatingProvider::class) rating: Float) {
@@ -85,6 +84,6 @@ private class RatingProvider : PreviewParameterProvider<Float> {
             2.25f,
             3.45f,
             4.8f,
-            5f
+            5f,
         )
 }

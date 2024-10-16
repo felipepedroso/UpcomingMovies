@@ -1,7 +1,6 @@
 package br.pedroso.upcomingmovies.movieslist
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import br.pedroso.upcomingmovies.domain.MoviesRepository
 import br.pedroso.upcomingmovies.movieslist.MoviesListUiState.DisplayMovies
@@ -57,4 +56,3 @@ class MoviesListViewModel @Inject constructor(
         }
     }
 }
-

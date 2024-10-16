@@ -34,7 +34,7 @@ class MovieDetailsViewModelTest {
         runTest {
             val viewModel = MovieDetailsViewModel(
                 savedStateHandle = SavedStateHandle(),
-                moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture())
+                moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture()),
             )
 
             viewModel.uiState.test {
@@ -46,7 +46,6 @@ class MovieDetailsViewModelTest {
             }
         }
 
-
     @Test
     fun `Given getMovieDetails fails, When the screen is created, Then error is displayed`() =
         runTest {
@@ -54,7 +53,7 @@ class MovieDetailsViewModelTest {
                 savedStateHandle = SavedStateHandle().apply {
                     this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
                 },
-                moviesRepository = AlwaysFailingGetMovieDetails()
+                moviesRepository = AlwaysFailingGetMovieDetails(),
             )
 
             viewModel.uiState.test {
@@ -75,7 +74,7 @@ class MovieDetailsViewModelTest {
                 savedStateHandle = SavedStateHandle().apply {
                     this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
                 },
-                moviesRepository = AlwaysSuccessfulGetMovieDetails(movieDetails)
+                moviesRepository = AlwaysSuccessfulGetMovieDetails(movieDetails),
             )
 
             viewModel.uiState.test {
@@ -93,7 +92,7 @@ class MovieDetailsViewModelTest {
             savedStateHandle = SavedStateHandle().apply {
                 this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
             },
-            moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture())
+            moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture()),
         )
 
         viewModel.onUiEvent(ClickedOnSimilarMovie(similarMovie))
@@ -109,7 +108,7 @@ class MovieDetailsViewModelTest {
             savedStateHandle = SavedStateHandle().apply {
                 this[MovieDetailsActivity.EXTRA_MOVIE_ID] = fixture<Int>()
             },
-            moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture())
+            moviesRepository = AlwaysSuccessfulGetMovieDetails(fixture()),
         )
 
         viewModel.onUiEvent(ClickedOnNavigateBack)

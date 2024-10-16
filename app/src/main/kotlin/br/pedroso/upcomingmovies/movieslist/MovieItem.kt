@@ -33,20 +33,20 @@ fun MovieItem(
                     Brush.linearGradient(
                         listOf(
                             MaterialTheme.colorScheme.surfaceVariant,
-                            MaterialTheme.colorScheme.surface
-                        )
-                    )
+                            MaterialTheme.colorScheme.surface,
+                        ),
+                    ),
                 ),
                 model = movie.posterPath,
                 contentDescription = null,
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.FillWidth,
             )
 
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                verticalArrangement = spacedBy(4.dp)
+                verticalArrangement = spacedBy(4.dp),
             ) {
                 Text(text = movie.title, style = MaterialTheme.typography.headlineSmall)
 

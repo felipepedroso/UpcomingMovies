@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RetrofitResponseMoviesEntity(
-    @SerialName("results") val results: List<RetrofitMovieEntity>
+    @SerialName("results") val results: List<RetrofitMovieEntity>,
 )

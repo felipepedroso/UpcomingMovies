@@ -12,7 +12,6 @@ interface TheMovieDbService {
     @GET("movie/{movieId}")
     suspend fun getMovieDetails(@Path("movieId") movieId: Int): RetrofitMovieEntity
 
-
     @GET("movie/{movieId}/similar")
     suspend fun listSimilarMovies(@Path("movieId") movieId: Int): RetrofitResponseMoviesEntity
 

@@ -39,7 +39,7 @@ fun MoviesListScreen(
     MoviesListScreen(
         uiState = uiState,
         onUiEvent = viewModel::onUiEvent,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -54,7 +54,7 @@ fun MoviesListScreen(
             is DisplayMovies -> MoviesList(
                 modifier = Modifier.fillMaxSize(),
                 movies = state.movies,
-                clickedOnMovie = { movie -> onUiEvent(ClickedOnMovie(movie)) }
+                clickedOnMovie = { movie -> onUiEvent(ClickedOnMovie(movie)) },
             )
 
             Empty -> ErrorState(

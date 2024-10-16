@@ -22,7 +22,7 @@ fun LoadingState(
     Row(
         modifier = modifier.padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = spacedBy(16.dp, Alignment.CenterHorizontally)
+        horizontalArrangement = spacedBy(16.dp, Alignment.CenterHorizontally),
     ) {
         CircularProgressIndicator()
         Text(text = text, style = MaterialTheme.typography.bodyLarge)

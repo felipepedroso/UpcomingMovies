@@ -20,9 +20,8 @@ fun ErrorState(
     Column(
         modifier = modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = spacedBy(16.dp, Alignment.CenterVertically)
+        verticalArrangement = spacedBy(16.dp, Alignment.CenterVertically),
     ) {
-
         Text(text = text, style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
     }
 }

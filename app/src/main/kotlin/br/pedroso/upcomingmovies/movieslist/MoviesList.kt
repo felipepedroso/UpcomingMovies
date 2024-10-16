@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -27,13 +26,14 @@ fun MoviesList(
         contentPadding = PaddingValues(
             start = 16.dp,
             end = 16.dp,
-            bottom = WindowInsets.safeDrawing.asPaddingValues().calculateBottomPadding()
+            bottom = WindowInsets.safeDrawing.asPaddingValues().calculateBottomPadding(),
         ),
     ) {
         items(movies) { movie ->
             MovieItem(
                 modifier = Modifier.fillMaxWidth(),
-                movie = movie, onClick = { clickedOnMovie(movie) },
+                movie = movie,
+                onClick = { clickedOnMovie(movie) },
             )
         }
     }
@@ -45,6 +45,6 @@ fun MoviesListPreview() {
     MoviesList(
         movies = (1..10).map {
             Movie(id = it, title = "Movie $it", releaseDate = "2024-01-01")
-        }
+        },
     )
 }

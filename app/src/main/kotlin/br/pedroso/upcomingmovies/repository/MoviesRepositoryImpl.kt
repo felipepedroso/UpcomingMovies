@@ -30,7 +30,7 @@ class MoviesRepositoryImpl @Inject constructor(
 
     private suspend fun listSimilarMovies(movieId: Int): List<Movie> {
         return theMovieDbService.listSimilarMovies(movieId).results.map(
-            retrofitMovieEntityToMovieMapper
+            retrofitMovieEntityToMovieMapper,
         )
     }
 }
