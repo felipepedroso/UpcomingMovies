@@ -33,7 +33,7 @@ android {
     }
 
     buildTypes.onEach {
-        it.buildConfigField("String", "MOVIES_DB_API_KEY", properties["MovieDbApiKey"].toString())
+            it.buildConfigField("String", "MOVIES_DB_API_KEY", properties["MovieDbApiKey"].toString())
     }
 
     buildFeatures {
@@ -120,9 +120,11 @@ dependencies {
     // Kotlin Serialization
     implementation(libs.kotlin.serializationJson)
 
-    // Retrofit
-    implementation(libs.retrofit2.retrofit)
-    implementation(libs.retrofit2.converterKotlinxSerialization)
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
 
     coreLibraryDesugaring(libs.desugarJdkLibs)
 

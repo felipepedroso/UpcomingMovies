@@ -4,17 +4,18 @@ import android.app.Application
 import br.pedroso.upcomingmovies.BuildConfig
 import br.pedroso.upcomingmovies.network.interceptors.ApiKeyInterceptor
 import br.pedroso.upcomingmovies.network.services.TheMovieDbService
+import br.pedroso.upcomingmovies.network.services.TheMovieDbServiceKtor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import retrofit2.Converter
-import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -35,18 +36,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(cache: Cache?, apiKeyInterceptor: ApiKeyInterceptor): OkHttpClient {
-        val builder = OkHttpClient.Builder()
-
-        builder.cache(cache)
-
-        builder.addInterceptor(apiKeyInterceptor)
-
-        return builder.build()
-    }
-
-    @Provides
-    @Singleton
     fun provideJson(): Json {
         return Json {
             ignoreUnknownKeys = true
@@ -56,26 +45,36 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideJsonConverterFactory(json: Json): Converter.Factory {
-        return json.asConverterFactory("application/json".toMediaType())
+    fun provideHttpClient(
+        cache: Cache?,
+        apiKeyInterceptor: ApiKeyInterceptor,
+        json: Json,
+    ): HttpClient {
+        return HttpClient(OkHttp) {
+
+            expectSuccess = true
+
+            engine {
+                addInterceptor(apiKeyInterceptor)
+                config {
+                    cache(cache)
+                }
+            }
+
+            defaultRequest {
+                url(TheMovieDbService.BASE_URL)
+            }
+
+            install(ContentNegotiation) {
+                json(json)
+            }
+        }
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(converterFactory: Converter.Factory, httpClient: OkHttpClient): Retrofit {
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(converterFactory)
-            .baseUrl(TheMovieDbService.BASE_URL)
-            .client(httpClient)
-            .build()
-
-        return retrofit
-    }
-
-    @Provides
-    @Singleton
-    fun provideTheMovieDbService(retrofit: Retrofit): TheMovieDbService {
-        return retrofit.create(TheMovieDbService::class.java)
+    fun provideTheMovieDbService(httpClient: HttpClient): TheMovieDbService {
+        return TheMovieDbServiceKtor(httpClient)
     }
 
     companion object {
