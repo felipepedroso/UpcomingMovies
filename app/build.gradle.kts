@@ -33,7 +33,7 @@ android {
     }
 
     buildTypes.onEach {
-            it.buildConfigField("String", "MOVIES_DB_API_KEY", properties["MovieDbApiKey"].toString())
+        it.buildConfigField("String", "MOVIES_DB_API_KEY", properties["MovieDbApiKey"].toString())
     }
 
     buildFeatures {

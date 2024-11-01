@@ -12,10 +12,10 @@ class TheMovieDbServiceKtor(private val client: HttpClient) : TheMovieDbService 
     }
 
     override suspend fun getMovieDetails(movieId: Int): NetworkMovie {
-        return client.get("movie/${movieId}").body()
+        return client.get("movie/$movieId").body()
     }
 
     override suspend fun listSimilarMovies(movieId: Int): NetworkMoviesResponse {
-        return client.get("movie/${movieId}/similar").body()
+        return client.get("movie/$movieId/similar").body()
     }
 }

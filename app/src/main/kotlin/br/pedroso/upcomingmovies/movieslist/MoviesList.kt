@@ -30,7 +30,8 @@ fun MoviesList(
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text(text = stringResource(R.string.app_name)) }) }) {
+        topBar = { TopAppBar(title = { Text(text = stringResource(R.string.app_name)) }) },
+    ) {
         LazyColumn(
             modifier = Modifier.padding(it),
             verticalArrangement = spacedBy(16.dp),

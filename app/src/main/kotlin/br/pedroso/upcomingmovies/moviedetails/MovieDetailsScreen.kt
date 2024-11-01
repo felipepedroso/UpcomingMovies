@@ -75,12 +75,13 @@ fun MovieDetailsScreen(
                         IconButton(onClick = { onUiEvent(ClickedOnNavigateBack) }) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_arrow_back),
-                                contentDescription = null
+                                contentDescription = null,
                             )
                         }
                     }
-                })
-        }
+                },
+            )
+        },
     ) {
         AnimatedContent(
             modifier = Modifier.padding(it),

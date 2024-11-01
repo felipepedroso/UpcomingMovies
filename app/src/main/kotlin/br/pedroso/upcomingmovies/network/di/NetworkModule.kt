@@ -51,7 +51,6 @@ class NetworkModule {
         json: Json,
     ): HttpClient {
         return HttpClient(OkHttp) {
-
             expectSuccess = true
 
             engine {
